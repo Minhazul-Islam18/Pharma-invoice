@@ -15,8 +15,6 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable implements HasMedia
 {
     use HasFactory, Notifiable, HasRoles, InteractsWithMedia;
-    public const ADMIN = 'Admin';
-    public const CUSTOMER = 'Customer';
 
     /**
      * The attributes that are mass assignable.

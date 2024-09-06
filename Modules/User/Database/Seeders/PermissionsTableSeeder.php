@@ -155,6 +155,5 @@ class PermissionsTableSeeder extends Seeder
         ]);
 
         $role->givePermissionTo($permissions);
-        $role->revokePermissionTo('access_user_management');
     }
 }
