@@ -19,7 +19,6 @@ class UpdateSaleReturnRequest extends FormRequest
             'reference' => 'required|string|max:255',
             'tax_percentage' => 'required|integer|min:0|max:100',
             'discount_percentage' => 'required|integer|min:0|max:100',
-            'shipping_amount' => 'required|numeric',
             'total_amount' => 'required|numeric',
             'paid_amount' => 'required|numeric|max:' . $this->sale_return->total_amount,
             'status' => 'required|string|max:255',
@@ -30,7 +29,7 @@ class UpdateSaleReturnRequest extends FormRequest
 
     /**
      * Determine if the user is authorized to make this request.
-     *
+     *k
      * @return bool
      */
     public function authorize()

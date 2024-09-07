@@ -2,16 +2,18 @@
 
 namespace Modules\Sale\Http\Controllers;
 
-use Modules\Sale\DataTables\SalesDataTable;
-use Gloudemans\Shoppingcart\Facades\Cart;
+use App\Models\User;
+use Modules\Sale\Entities\Sale;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Gate;
 use Modules\People\Entities\Customer;
 use Modules\Product\Entities\Product;
-use Modules\Sale\Entities\Sale;
 use Modules\Sale\Entities\SaleDetails;
 use Modules\Sale\Entities\SalePayment;
+use Gloudemans\Shoppingcart\Facades\Cart;
+use Modules\Sale\DataTables\SalesDataTable;
 use Modules\Sale\Http\Requests\StoreSaleRequest;
 use Modules\Sale\Http\Requests\UpdateSaleRequest;
 
@@ -35,7 +37,6 @@ class SaleController extends Controller
         return view('sale::create');
     }
 
-
     public function store(StoreSaleRequest $request)
     {
         DB::transaction(function () use ($request) {
@@ -49,15 +50,15 @@ class SaleController extends Controller
                 $payment_status = 'Paid';
             }
 
-            $customer = Customer::select(['customer_firstname', 'customer_lastname'])->findOrFail($request->customer_id);
+            $customer = auth()->user();
             $sale = Sale::create([
                 'date' => now()->format('Y-m-d'),
                 'reference' => 'PSL',
-                'customer_id' => $request->customer_id,
+                'customer_id' => $customer->id,
                 'customer_name' => $customer->customer_firstname . ' ' . $customer->customer_lastname,
                 'tax_percentage' => $request->tax_percentage,
                 'discount_percentage' => $request->discount_percentage,
-                'shipping_amount' => $request->shipping_amount * 100,
+                'shipping_amount' => $request->shipping_amount ? $request->shipping_amount * 100 : 0,
                 'paid_amount' => $request->paid_amount * 100,
                 'total_amount' => $request->total_amount * 100,
                 'due_amount' => $due_amount * 100,
@@ -115,9 +116,15 @@ class SaleController extends Controller
     {
         abort_if(Gate::denies('show_sales'), 403);
 
-        $customer = Customer::findOrFail($sale->customer_id);
+        $customer = User::findOrFail($sale->customer_id);
 
-        return view('sale::show', compact('sale', 'customer'));
+        // Get the first user with either SUPERADMIN or ADMIN role
+        $superAdmin = User::whereHas('roles', function ($query) {
+            $query->where('name', Role::SUPERADMIN)
+                ->orWhere('name', Role::ADMIN);
+        })->first();
+        $sale->load('product');
+        return view('sale::show', compact('sale', 'customer', 'superAdmin'));
     }
 
 
@@ -178,15 +185,15 @@ class SaleController extends Controller
                 $sale_detail->delete();
             }
 
-            $customer = Customer::select(['customer_firstname', 'customer_lastname'])->findOrFail($request->customer_id);
+            $customer = auth()->user();
             $sale->update([
                 'date' => $request->date,
                 'reference' => $request->reference,
-                'customer_id' => $request->customer_id,
+                'customer_id' => $customer->id,
                 'customer_name' => $customer->customer_firstname . ' ' . $customer->customer_lastname,
                 'tax_percentage' => $request->tax_percentage,
                 'discount_percentage' => $request->discount_percentage,
-                'shipping_amount' => $request->shipping_amount * 100,
+                'shipping_amount' => $request->shipping_amount ? $request->shipping_amount * 100 : 0,
                 'paid_amount' => $request->paid_amount * 100,
                 'total_amount' => $request->total_amount * 100,
                 'due_amount' => $due_amount * 100,

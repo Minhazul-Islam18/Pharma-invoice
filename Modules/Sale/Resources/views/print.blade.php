@@ -8,133 +8,205 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Sale Details</title>
     <link rel="stylesheet" href="{{ public_path('b3/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ public_path('b3/bootstrap-icons.css') }}">
+    <style>
+        .border-right {
+            border-right: 1px solid #ddd;
+        }
+
+        .border-bottom {
+            border-bottom: 1px solid #ddd;
+        }
+
+        .table td,
+        .table th {
+            padding: 0.75rem;
+        }
+
+        .text-uppercase {
+            text-transform: uppercase;
+        }
+
+        .font-weight-bold {
+            font-weight: bold;
+        }
+
+        .font-3xl {
+            font-size: 1.75rem;
+        }
+    </style>
 </head>
 
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-xs-12">
-                <div style="text-align: center;margin-bottom: 25px;">
-                    <img width="180" src="{{ public_path('images/logo-dark.png') }}" alt="Logo">
-                    <h4 style="margin-bottom: 20px;">
-                        <span>Reference::</span> <strong>{{ $sale->reference }}</strong>
-                    </h4>
-                </div>
+            <div class="col-lg-12">
                 <div class="card">
+                    <div class="card-header d-flex flex-wrap align-items-center">
+                        <div>
+                            Reference: <strong>{{ $sale->reference }}</strong>
+                        </div>
+                        <a target="_blank" class="btn btn-sm btn-secondary ms-auto me-1 d-print-none"
+                            href="{{ route('sales.pdf', $sale->id) }}">
+                            <i class="bi bi-printer"></i> Print
+                        </a>
+                        <a target="_blank" class="btn btn-sm btn-info me-1 d-print-none"
+                            href="{{ route('sales.pdf', ['id' => $sale->id]) }}">
+                            <i class="bi bi-save"></i> Save
+                        </a>
+                    </div>
                     <div class="card-body">
-                        <div class="row mb-4">
-                            <div class="col-xs-4 mb-3 mb-md-0">
-                                <h4 class="mb-2" style="border-bottom: 1px solid #dddddd;padding-bottom: 10px;">
-                                    Company Info:</h4>
-                                <div><strong>{{ settings()->company_name }}</strong></div>
-                                <div>{{ settings()->company_address }}</div>
-                                <div>Email: {{ settings()->company_email }}</div>
-                                <div>Phone: {{ settings()->company_phone }}</div>
+                        <div class="row mb-3">
+                            <div
+                                class="col-sm-2 col-12 px-0 d-flex align-items-center justify-content-center justify-content-sm-start">
+                                <img style="width: 48px" src="{{ asset('images/invoice/00ohv6rs.bmp') }}"
+                                    alt="">
+                            </div>
+                            <div class="col-sm-10 col-12 d-flex align-items-center justify-content-center">
+                                <h1 class="text-uppercase font-weight-bold h3">Healthcare Pharmaceuticals Ltd.</h1>
+                            </div>
+                        </div>
+                        <div class="row mb-4 border">
+                            <div class="col-sm-4 mb-3 mb-md-0 border-right border-bottom">
+                                <p>
+                                    Nasir Trade Centre (Level-9 & 14)<br />
+                                    89 Bir Uttam C.R. Datta Sarak, Dhaka- 1205.<br />
+                                    Tel: +880-2-9632175, +880-2-9632176<br />
+                                    Fax: +880-2-9632172
+                                </p>
                             </div>
 
-                            <div class="col-xs-4 mb-3 mb-md-0">
-                                <h4 class="mb-2" style="border-bottom: 1px solid #dddddd;padding-bottom: 10px;">
-                                    Customer Info:</h4>
+                            <div class="col-sm-4 mb-3 mb-md-0 border-right d-flex align-items-center border-bottom">
+                                <h5 class="mx-auto text-uppercase font-3xl font-weight-bold text-center">Invoice</h5>
+                            </div>
+
+                            <div class="col-sm-4 mb-3 mb-md-0 border-bottom p-1">
+                                <img class="img-fluid" src="{{ asset('images/invoice/2024-09-07_153328.png') }}"
+                                    alt="">
+                            </div>
+
+                            <div class="col-sm-4 mb-3 mb-md-0 border-right">
+                                <p>
+                                    Moghbazar(Biotech) Sales Depot<br />
+                                    Gulfesha Plaza (3rd Floor), Above Agora,<br />
+                                    "Shahid Sangbadik Salina Parvin Sarak", Dhaka-1217<br />
+                                    Bangladesh<br />
+                                    Telephone: 9632176 (1401)
+                                </p>
+                            </div>
+
+                            <div class="col-sm-4 mb-3 mb-md-0 border-right">
+                                <h5 class="mb-2 border-bottom pb-2">Customer Info:</h5>
                                 <div>
-                                    <strong>{{ $customer->customer_firstname . ' ' . $customer->customer_lastname }}</strong>
+                                    <strong>{{ $customer->firstname . ' ' . $customer->lastname }}</strong>
                                 </div>
                                 <div>{{ $customer->address }}</div>
-                                <div>Email: {{ $customer->customer_email }}</div>
-                                <div>Phone: {{ $customer->customer_phone }}</div>
+                                <div>Email: {{ $customer->email }}</div>
+                                <div>Phone: {{ $customer->phone }}</div>
                             </div>
 
-                            <div class="col-xs-4 mb-3 mb-md-0">
-                                <h4 class="mb-2" style="border-bottom: 1px solid #dddddd;padding-bottom: 10px;">
-                                    Invoice Info:</h4>
-                                <div>Invoice: <strong>INV/{{ $sale->reference }}</strong></div>
+                            <div class="col-sm-4 mb-3 mb-md-0">
                                 <div>Date: {{ \Carbon\Carbon::parse($sale->date)->format('d M, Y') }}</div>
-                                <div>
-                                    Status: <strong>{{ $sale->status }}</strong>
-                                </div>
-                                <div>
-                                    Payment Status: <strong>{{ $sale->payment_status }}</strong>
-                                </div>
+                                <div>Invoice: <strong>INV/{{ $sale->reference }}</strong></div>
+                                <div>Pay mode: <strong>{{ $sale->payment_method }}</strong></div>
+                                <div>Area: <span>{{ $superAdmin->area }}</span></div>
+                                <div>Associate: <span>{{ $superAdmin->associate }}</span></div>
+                                <div>Mobile no: <span>{{ $superAdmin->phone }}</span></div>
+                                <div>Delivered by: <span>{{ $superAdmin->delivered_by }}</span></div>
                             </div>
 
                         </div>
-
-                        <div class="table-responsive-sm" style="margin-top: 30px;">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th class="align-middle">Product</th>
-                                        <th class="align-middle">Net Unit Price</th>
-                                        <th class="align-middle">Quantity</th>
-                                        <th class="align-middle">Discount</th>
-                                        <th class="align-middle">Tax</th>
-                                        <th class="align-middle">Sub Total</th>
+                        <div class="row mb-0">
+                            <div class="col p-0">
+                                <div class="d-block">
+                                    <span>Doctor name:</span>
+                                    <span>xxxxxxxxxxxx</span>
+                                </div>
+                                <div class="d-block">
+                                    <span>Chamber name:</span>
+                                    <span>xxxxxxxxxxxx</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive-sm">
+                        <table class="table table-striped mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="align-middle border-right">SL.No.</th>
+                                    <th class="align-middle border-right">Product code</th>
+                                    <th class="align-middle border-right">Product</th>
+                                    <th class="align-middle border-right">Pack size UOM</th>
+                                    <th class="align-middle border-right">Batch number</th>
+                                    <th class="align-middle border-right">MRP (TK)</th>
+                                    <th class="align-middle border-right">Vat (TK)</th>
+                                    <th class="align-middle border-right">Quantity</th>
+                                    <th class="align-middle border-right">Discount</th>
+                                    <th class="align-middle border-right">MRP (TK) value</th>
+                                    <th class="align-middle border-right">Vat (TK) value</th>
+                                    <th class="align-middle">Total value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php
+                                    $mrp = 0;
+                                    $vat = 0;
+                                    $subTotal = 0;
+                                @endphp
+                                @foreach ($sale->saleDetails as $index => $item)
+                                    <tr class="border-bottom">
+                                        <td class="align-middle border-right">{{ $index + 1 }}</td>
+                                        <td class="align-middle border-right">{{ $item->product_code }}</td>
+                                        <td class="align-middle border-right">{{ $item->product_name }}</td>
+                                        <td class="align-middle border-right">{{ $item?->product?->pack_size }}</td>
+                                        <td class="align-middle border-right">{{ $item?->product?->batch_no }}</td>
+                                        <td class="align-middle border-right">{{ format_currency($item->unit_price) }}
+                                        </td>
+                                        <td class="align-middle border-right">
+                                            {{ format_currency($item->product_tax_amount) }}</td>
+                                        <td class="align-middle border-right">{{ $item->quantity }}</td>
+                                        <td class="align-middle border-right">
+                                            {{ format_currency($item->product_discount_amount) }}</td>
+                                        <td class="align-middle border-right">
+                                            @php
+                                                $mrp +=
+                                                    $item->unit_price * $item->quantity -
+                                                    $item->product_discount_amount;
+                                            @endphp
+                                            {{ format_currency($item->unit_price * $item->quantity - $item->product_discount_amount) }}
+                                        </td>
+                                        <td class="align-middle border-right">
+                                            @php
+                                                $vat += $item->product_tax_amount;
+                                            @endphp
+                                            {{ format_currency($item->product_tax_amount) }}
+                                        </td>
+                                        <td class="align-middle">
+                                            @php
+                                                $subTotal += $item->sub_total;
+                                            @endphp
+                                            {{ format_currency($item->sub_total) }}
+                                        </td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($sale->saleDetails as $item)
-                                        <tr>
-                                            <td class="align-middle">
-                                                {{ $item->product_name }} <br>
-                                                <span class="badge badge-success">
-                                                    {{ $item->product_code }}
-                                                </span>
-                                            </td>
-
-                                            <td class="align-middle">{{ format_currency($item->unit_price) }}</td>
-
-                                            <td class="align-middle">
-                                                {{ $item->quantity }}
-                                            </td>
-
-                                            <td class="align-middle">
-                                                {{ format_currency($item->product_discount_amount) }}
-                                            </td>
-
-                                            <td class="align-middle">
-                                                {{ format_currency($item->product_tax_amount) }}
-                                            </td>
-
-                                            <td class="align-middle">
-                                                {{ format_currency($item->sub_total) }}
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-4 col-xs-offset-8">
-                                <table class="table">
-                                    <tbody>
-                                        <tr>
-                                            <td class="left"><strong>Discount
-                                                    ({{ $sale->discount_percentage }}%)</strong></td>
-                                            <td class="right">{{ format_currency($sale->discount_amount) }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="left"><strong>Tax ({{ $sale->tax_percentage }}%)</strong></td>
-                                            <td class="right">{{ format_currency($sale->tax_amount) }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="left"><strong>Shipping</strong></td>
-                                            <td class="right">{{ format_currency($sale->shipping_amount) }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="left"><strong>Grand Total</strong></td>
-                                            <td class="right">
-                                                <strong>{{ format_currency($sale->total_amount) }}</strong>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="row" style="margin-top: 25px;">
-                            <div class="col-xs-12">
-                                <p style="font-style: italic;text-align: center">{{ settings()->company_name }} &copy;
-                                    {{ date('Y') }}.</p>
-                            </div>
-                        </div>
+                                @endforeach
+                                <tr class="border-bottom">
+                                    <td colspan="8"></td>
+                                    <td class="border-left border-right"><strong>Sub total</strong></td>
+                                    <td class="border-right">{{ format_currency($mrp) }}</td>
+                                    <td class="border-right">{{ format_currency($vat) }}</td>
+                                    <td class="border-right">{{ format_currency($subTotal) }}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="8"></td>
+                                    <td class="border-left border-right"><strong>Grand total</strong></td>
+                                    <td class="border-right"></td>
+                                    <td class="border-right">{{ format_currency($sale->total) }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer text-center">
+                        <small>All rights reserved. Healthcare Pharmaceuticals Ltd.</small>
                     </div>
                 </div>
             </div>

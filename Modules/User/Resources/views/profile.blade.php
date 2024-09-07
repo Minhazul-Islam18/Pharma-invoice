@@ -54,6 +54,30 @@
                                 @enderror
                             </div>
                             <div class="form-group">
+                                <label for="area">Area</label>
+                                <input class="form-control" type="text" name="area"
+                                    value="{{ auth()->user()->area }}">
+                                @error('area')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="associate">Associate</label>
+                                <input class="form-control" type="text" name="associate"
+                                    value="{{ auth()->user()->associate }}">
+                                @error('associate')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="delivered_by">Delivered by</label>
+                                <input class="form-control" type="text" name="delivered_by"
+                                    value="{{ auth()->user()->delivered_by }}">
+                                @error('delivered_by')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            <div class="form-group">
                                 <button type="submit" class="btn btn-primary">Update Profile <i
                                         class="bi bi-check"></i></button>
                             </div>

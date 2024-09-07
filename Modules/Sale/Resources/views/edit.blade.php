@@ -27,29 +27,14 @@
                             @csrf
                             @method('patch')
                             <div class="form-row">
-                                <div class="col-lg-4">
+                                <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="reference">Reference <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="reference" required
                                             value="{{ $sale->reference }}" readonly>
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
-                                    <div class="from-group">
-                                        <div class="form-group">
-                                            <label for="customer_id">Customer <span class="text-danger">*</span></label>
-                                            <select class="form-control" name="customer_id" id="customer_id" required>
-                                                @foreach (\Modules\People\Entities\Customer::all() as $customer)
-                                                    <option {{ $sale->customer_id == $customer->id ? 'selected' : '' }}
-                                                        value="{{ $customer->id }}">
-                                                        {{ $customer->customer_firstname . ' ' . $customer->customer_lastname }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-6">
                                     <div class="from-group">
                                         <div class="form-group">
                                             <label for="date">Date <span class="text-danger">*</span></label>

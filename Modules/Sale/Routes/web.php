@@ -1,5 +1,13 @@
 <?php
 
+use Dompdf\Dompdf;
+use Dompdf\Options;
+use App\Models\User;
+use Spatie\Permission\Models\Role;
+use Spatie\Browsershot\Browsershot;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,15 +27,36 @@ Route::group(['middleware' => 'auth'], function () {
 
     //Generate PDF
     Route::get('/sales/pdf/{id}', function ($id) {
-        $sale = \Modules\Sale\Entities\Sale::findOrFail($id);
-        $customer = \Modules\People\Entities\Customer::findOrFail($sale->customer_id);
-
-        $pdf = \PDF::loadView('sale::print', [
+        $sale = \Modules\Sale\Entities\Sale::with('customer')->find($id);
+        $superAdmin = User::whereHas('roles', function ($query) {
+            $query->where('name', Role::SUPERADMIN)
+                ->orWhere('name', Role::ADMIN);
+        })->first();
+        // Render the view to HTML
+        $html = view('sale::print', [
             'sale' => $sale,
-            'customer' => $customer,
-        ])->setPaper('a4');
+            'customer' => $sale->customer,
+            'superAdmin' => $superAdmin,
+        ])->render();
 
-        return $pdf->stream('sale-'. $sale->reference .'.pdf');
+        // Initialize dompdf
+        $dompdf = new Dompdf();
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isPhpEnabled', true);  // Enable PHP within HTML if necessary
+        $dompdf->setOptions($options);
+
+        // Load HTML content
+        $dompdf->loadHtml($html);
+
+        // (Optional) Set paper size and orientation
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the PDF
+        $dompdf->render();
+
+        // Stream the file (download in the browser)
+        return $dompdf->stream('example.pdf', ['Attachment' => 0]);  // Use 'Attachment' => 1 to force download
     })->name('sales.pdf');
 
     Route::get('/sales/pos/pdf/{id}', function ($id) {
@@ -41,7 +70,7 @@ Route::group(['middleware' => 'auth'], function () {
             ->setOption('margin-left', 5)
             ->setOption('margin-right', 5);
 
-        return $pdf->stream('sale-'. $sale->reference .'.pdf');
+        return $pdf->stream('sale-' . $sale->reference . '.pdf');
     })->name('sales.pos.pdf');
 
     //Sales
