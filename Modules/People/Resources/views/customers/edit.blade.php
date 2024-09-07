@@ -28,14 +28,29 @@
                             <div class="form-row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="customer_name">Customer Name <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="customer_name" required value="{{ $customer->customer_name }}">
+                                        <label for="customer_firstname">First name <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="customer_firstname" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="customer_lastname">Last name <span class="text-danger">*</span></label>
+                                        <input type="email" class="form-control" name="customer_lastname" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="customer_phone">Phone <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="customer_phone" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="customer_email">Email <span class="text-danger">*</span></label>
-                                        <input type="email" class="form-control" name="customer_email" required value="{{ $customer->customer_email }}">
+                                        <input type="email" class="form-control" name="customer_email" required>
                                     </div>
                                 </div>
                             </div>
@@ -44,19 +59,22 @@
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="customer_phone">Phone <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="customer_phone" required value="{{ $customer->customer_phone }}">
+                                        <input type="text" class="form-control" name="customer_phone" required
+                                            value="{{ $customer->customer_phone }}">
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="city">City <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="city" required value="{{ $customer->city }}">
+                                        <input type="text" class="form-control" name="city" required
+                                            value="{{ $customer->city }}">
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="country">Country <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="country" required value="{{ $customer->country }}">
+                                        <input type="text" class="form-control" name="country" required
+                                            value="{{ $customer->country }}">
                                     </div>
                                 </div>
                             </div>
@@ -65,7 +83,8 @@
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for="address">Address <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="address" required value="{{ $customer->address }}">
+                                        <input type="text" class="form-control" name="address" required
+                                            value="{{ $customer->address }}">
                                     </div>
                                 </div>
                             </div>
@@ -76,4 +95,3 @@
         </form>
     </div>
 @endsection
-

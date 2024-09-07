@@ -12,25 +12,29 @@ use Modules\People\Entities\Customer;
 class CustomersController extends Controller
 {
 
-    public function index(CustomersDataTable $dataTable) {
+    public function index(CustomersDataTable $dataTable)
+    {
         abort_if(Gate::denies('access_customers'), 403);
 
         return $dataTable->render('people::customers.index');
     }
 
 
-    public function create() {
+    public function create()
+    {
         abort_if(Gate::denies('create_customers'), 403);
 
         return view('people::customers.create');
     }
 
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         abort_if(Gate::denies('create_customers'), 403);
 
         $request->validate([
-            'customer_name'  => 'required|string|max:255',
+            'customer_firstname'  => 'required|string|max:255',
+            'customer_lastname'  => 'required|string|max:255',
             'customer_phone' => 'required|max:255',
             'customer_email' => 'required|email|max:255',
             'city'           => 'required|string|max:255',
@@ -39,7 +43,8 @@ class CustomersController extends Controller
         ]);
 
         Customer::create([
-            'customer_name'  => $request->customer_name,
+            'customer_firstname'  => $request->customer_firstname,
+            'customer_lastname'  => $request->customer_lastname,
             'customer_phone' => $request->customer_phone,
             'customer_email' => $request->customer_email,
             'city'           => $request->city,
@@ -53,25 +58,29 @@ class CustomersController extends Controller
     }
 
 
-    public function show(Customer $customer) {
+    public function show(Customer $customer)
+    {
         abort_if(Gate::denies('show_customers'), 403);
 
         return view('people::customers.show', compact('customer'));
     }
 
 
-    public function edit(Customer $customer) {
+    public function edit(Customer $customer)
+    {
         abort_if(Gate::denies('edit_customers'), 403);
 
         return view('people::customers.edit', compact('customer'));
     }
 
 
-    public function update(Request $request, Customer $customer) {
+    public function update(Request $request, Customer $customer)
+    {
         abort_if(Gate::denies('update_customers'), 403);
 
         $request->validate([
-            'customer_name'  => 'required|string|max:255',
+            'customer_firstname'  => 'required|string|max:255',
+            'customer_lastname'  => 'required|string|max:255',
             'customer_phone' => 'required|max:255',
             'customer_email' => 'required|email|max:255',
             'city'           => 'required|string|max:255',
@@ -80,7 +89,8 @@ class CustomersController extends Controller
         ]);
 
         $customer->update([
-            'customer_name'  => $request->customer_name,
+            'customer_firstname'  => $request->customer_firstname,
+            'customer_lastname'  => $request->customer_lastname,
             'customer_phone' => $request->customer_phone,
             'customer_email' => $request->customer_email,
             'city'           => $request->city,
@@ -94,7 +104,8 @@ class CustomersController extends Controller
     }
 
 
-    public function destroy(Customer $customer) {
+    public function destroy(Customer $customer)
+    {
         abort_if(Gate::denies('delete_customers'), 403);
 
         $customer->delete();

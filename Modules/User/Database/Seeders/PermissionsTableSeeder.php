@@ -144,12 +144,6 @@ class PermissionsTableSeeder extends Seeder
             'delete_sales',
         ];
 
-        foreach ($permissions as $permission) {
-            Permission::create([
-                'name' => $permission
-            ]);
-        }
-
         $role = Role::create([
             'name' => Role::CUSTOMER
         ]);

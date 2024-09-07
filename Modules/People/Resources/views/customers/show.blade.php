@@ -20,7 +20,7 @@
                             <table class="table table-bordered">
                                 <tr>
                                     <th>Customer Name</th>
-                                    <td>{{ $customer->customer_name }}</td>
+                                    <td>{{ $customer->customer_firstname . ' ' . $customer->customer_lastname }}</td>
                                 </tr>
                                 <tr>
                                     <th>Customer Email</th>
@@ -50,4 +50,3 @@
         </div>
     </div>
 @endsection
-

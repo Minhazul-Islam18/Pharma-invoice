@@ -3,9 +3,8 @@
 @section('title', 'Edit User')
 
 @section('third_party_stylesheets')
-    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet"/>
-    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
-          rel="stylesheet">
+    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet" />
+    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
 @endsection
 
 @section('breadcrumb')
@@ -34,14 +33,31 @@
                             <div class="form-row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="name">Name <span class="text-danger">*</span></label>
-                                        <input class="form-control" type="text" name="name" required value="{{ $user->name }}">
+                                        <label for="firstname">First name <span class="text-danger">*</span></label>
+                                        <input class="form-control" type="text" name="firstname" required
+                                            value="{{ $user->firstname }}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="lastname">Last name <span class="text-danger">*</span></label>
+                                        <input class="form-control" type="text" name="lastname" required
+                                            value="{{ $user->lastname }}">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="lastname">Last name <span class="text-danger">*</span></label>
+                                        <input class="form-control" type="text" name="lastname" required
+                                            value="{{ $user->lastname }}">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="email">Email <span class="text-danger">*</span></label>
-                                        <input class="form-control" type="email" name="email" required value="{{ $user->email }}">
+                                        <input class="form-control" type="email" name="email" required
+                                            value="{{ $user->email }}">
                                     </div>
                                 </div>
                             </div>
@@ -49,8 +65,9 @@
                             <div class="form-group">
                                 <label for="role">Role <span class="text-danger">*</span></label>
                                 <select class="form-control" name="role" id="role" required>
-                                    @foreach(\Spatie\Permission\Models\Role::where('name', '!=', 'Super Admin')->get() as $role)
-                                        <option {{ $user->hasRole($role->name) ? 'selected' : '' }} value="{{ $role->name }}">{{ $role->name }}</option>
+                                    @foreach (\Spatie\Permission\Models\Role::where('name', '!=', 'Super Admin')->get() as $role)
+                                        <option {{ $user->hasRole($role->name) ? 'selected' : '' }}
+                                            value="{{ $role->name }}">{{ $role->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -58,8 +75,8 @@
                             <div class="form-group">
                                 <label for="is_active">Status <span class="text-danger">*</span></label>
                                 <select class="form-control" name="is_active" id="is_active" required>
-                                    <option value="1" {{ $user->is_active == 1 ? 'selected' : ''}}>Active</option>
-                                    <option value="2" {{ $user->is_active == 2 ? 'selected' : ''}}>Deactive</option>
+                                    <option value="1" {{ $user->is_active == 1 ? 'selected' : '' }}>Active</option>
+                                    <option value="2" {{ $user->is_active == 2 ? 'selected' : '' }}>Deactive</option>
                                 </select>
                             </div>
                         </div>
@@ -70,7 +87,9 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="image">Profile Image <span class="text-danger">*</span></label>
-                                <img style="width: 100px;height: 100px;" class="d-block mx-auto img-thumbnail img-fluid rounded-circle mb-2" src="{{ $user->getFirstMediaUrl('avatars') }}" alt="Profile Image">
+                                <img style="width: 100px;height: 100px;"
+                                    class="d-block mx-auto img-thumbnail img-fluid rounded-circle mb-2"
+                                    src="{{ $user->getFirstMediaUrl('avatars') }}" alt="Profile Image">
                                 <input id="image" type="file" name="image" data-max-file-size="500KB">
                             </div>
                         </div>
@@ -83,10 +102,8 @@
 
 @section('third_party_scripts')
     <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
-    <script
-        src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
-    <script
-        src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
     <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
 @endsection
 
@@ -111,5 +128,3 @@
         });
     </script>
 @endpush
-
-

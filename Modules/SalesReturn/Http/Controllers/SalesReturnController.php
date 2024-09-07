@@ -18,14 +18,16 @@ use Modules\SalesReturn\Http\Requests\UpdateSaleReturnRequest;
 class SalesReturnController extends Controller
 {
 
-    public function index(SaleReturnsDataTable $dataTable) {
+    public function index(SaleReturnsDataTable $dataTable)
+    {
         abort_if(Gate::denies('access_sale_returns'), 403);
 
         return $dataTable->render('salesreturn::index');
     }
 
 
-    public function create() {
+    public function create()
+    {
         abort_if(Gate::denies('create_sale_returns'), 403);
 
         Cart::instance('sale_return')->destroy();
@@ -34,7 +36,8 @@ class SalesReturnController extends Controller
     }
 
 
-    public function store(StoreSaleReturnRequest $request) {
+    public function store(StoreSaleReturnRequest $request)
+    {
         DB::transaction(function () use ($request) {
             $due_amount = $request->total_amount - $request->paid_amount;
 
@@ -45,11 +48,13 @@ class SalesReturnController extends Controller
             } else {
                 $payment_status = 'Paid';
             }
+            $customer = Customer::select(['customer_firstname', 'customer_lastname'])->findOrFail($request->customer_id);
 
             $sale_return = SaleReturn::create([
                 'date' => $request->date,
                 'customer_id' => $request->customer_id,
-                'customer_name' => Customer::findOrFail($request->customer_id)->customer_name,
+                'customer_name' =>
+                $customer->customer_firstname . ' ' . $customer->customer_lastname,
                 'tax_percentage' => $request->tax_percentage,
                 'discount_percentage' => $request->discount_percentage,
                 'shipping_amount' => $request->shipping_amount * 100,
@@ -92,7 +97,7 @@ class SalesReturnController extends Controller
             if ($sale_return->paid_amount > 0) {
                 SaleReturnPayment::create([
                     'date' => $request->date,
-                    'reference' => 'INV/'.$sale_return->reference,
+                    'reference' => 'INV/' . $sale_return->reference,
                     'amount' => $sale_return->paid_amount,
                     'sale_return_id' => $sale_return->id,
                     'payment_method' => $request->payment_method
@@ -106,7 +111,8 @@ class SalesReturnController extends Controller
     }
 
 
-    public function show(SaleReturn $sale_return) {
+    public function show(SaleReturn $sale_return)
+    {
         abort_if(Gate::denies('show_sale_returns'), 403);
 
         $customer = Customer::findOrFail($sale_return->customer_id);
@@ -115,7 +121,8 @@ class SalesReturnController extends Controller
     }
 
 
-    public function edit(SaleReturn $sale_return) {
+    public function edit(SaleReturn $sale_return)
+    {
         abort_if(Gate::denies('edit_sale_returns'), 403);
 
         $sale_return_details = $sale_return->saleReturnDetails;
@@ -147,7 +154,8 @@ class SalesReturnController extends Controller
     }
 
 
-    public function update(UpdateSaleReturnRequest $request, SaleReturn $sale_return) {
+    public function update(UpdateSaleReturnRequest $request, SaleReturn $sale_return)
+    {
         DB::transaction(function () use ($request, $sale_return) {
             $due_amount = $request->total_amount - $request->paid_amount;
 
@@ -168,12 +176,14 @@ class SalesReturnController extends Controller
                 }
                 $sale_return_detail->delete();
             }
+            $customer = Customer::select(['customer_firstname', 'customer_lastname'])->findOrFail($request->customer_id);
 
             $sale_return->update([
                 'date' => $request->date,
                 'reference' => $request->reference,
                 'customer_id' => $request->customer_id,
-                'customer_name' => Customer::findOrFail($request->customer_id)->customer_name,
+                'customer_name' =>
+                $customer->customer_firstname . ' ' . $customer->customer_lastname,
                 'tax_percentage' => $request->tax_percentage,
                 'discount_percentage' => $request->discount_percentage,
                 'shipping_amount' => $request->shipping_amount * 100,
@@ -220,7 +230,8 @@ class SalesReturnController extends Controller
     }
 
 
-    public function destroy(SaleReturn $sale_return) {
+    public function destroy(SaleReturn $sale_return)
+    {
         abort_if(Gate::denies('delete_sale_returns'), 403);
 
         $sale_return->delete();

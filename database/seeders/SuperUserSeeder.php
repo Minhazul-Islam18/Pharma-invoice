@@ -17,16 +17,34 @@ class SuperUserSeeder extends Seeder
     public function run()
     {
         $user = User::create([
-            'name' => 'Administrator',
-            'email' => 'super.admin@test.com',
+            'firstname' => 'Jhon',
+            'lastname' => 'Doe',
+            'phone' => '0123456789',
+            'email' => 'admin@gmail.com',
             'password' => Hash::make(12345678),
             'is_active' => 1
         ]);
 
         $superAdmin = Role::create([
-            'name' => 'Super Admin'
+            'name' => Role::SUPERADMIN
         ]);
 
         $user->assignRole($superAdmin);
+
+
+        $user = User::create([
+            'firstname' => 'Ahmad musa',
+            'lastname' => 'Jibril',
+            'phone' => '0123456789',
+            'email' => 'customer@gmail.com',
+            'password' => Hash::make(12345678),
+            'is_active' => 1
+        ]);
+
+        $customer = Role::where([
+            'name' => Role::CUSTOMER
+        ])->first();
+
+        $user->assignRole($customer);
     }
 }

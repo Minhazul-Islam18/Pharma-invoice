@@ -1,4 +1,5 @@
 <?php
+
 namespace Modules\People\Database\factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -20,7 +21,8 @@ class CustomerFactory extends Factory
     public function definition()
     {
         return [
-            'customer_name' => $this->faker->name(),
+            'customer_firstname' => $this->faker->name(),
+            'customer_lastname' => $this->faker->name(),
             'customer_email' => $this->faker->safeEmail(),
             'customer_phone' => $this->faker->phoneNumber(),
             'city' => $this->faker->city(),
@@ -29,4 +31,3 @@ class CustomerFactory extends Factory
         ];
     }
 }
-

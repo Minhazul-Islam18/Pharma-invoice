@@ -13,7 +13,8 @@ use Yajra\DataTables\Services\DataTable;
 class CustomersDataTable extends DataTable
 {
 
-    public function dataTable($query) {
+    public function dataTable($query)
+    {
         return datatables()
             ->eloquent($query)
             ->addColumn('action', function ($data) {
@@ -21,11 +22,13 @@ class CustomersDataTable extends DataTable
             });
     }
 
-    public function query(Customer $model) {
+    public function query(Customer $model)
+    {
         return $model->newQuery();
     }
 
-    public function html() {
+    public function html()
+    {
         return $this->builder()
             ->setTableId('customers-table')
             ->columns($this->getColumns())
@@ -46,9 +49,13 @@ class CustomersDataTable extends DataTable
             );
     }
 
-    protected function getColumns() {
+    protected function getColumns()
+    {
         return [
-            Column::make('customer_name')
+            Column::make('customer_firstname')
+                ->className('text-center align-middle'),
+
+            Column::make('customer_lastname')
                 ->className('text-center align-middle'),
 
             Column::make('customer_email')
@@ -67,7 +74,8 @@ class CustomersDataTable extends DataTable
         ];
     }
 
-    protected function filename(): string {
+    protected function filename(): string
+    {
         return 'Customers_' . date('YmdHis');
     }
 }

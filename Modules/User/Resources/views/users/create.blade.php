@@ -3,9 +3,8 @@
 @section('title', 'Create User')
 
 @section('third_party_stylesheets')
-    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet"/>
-    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
-          rel="stylesheet">
+    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet" />
+    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
 @endsection
 
 @section('breadcrumb')
@@ -33,8 +32,22 @@
                             <div class="form-row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="name">Name <span class="text-danger">*</span></label>
-                                        <input class="form-control" type="text" name="name" required>
+                                        <label for="firstname">First name <span class="text-danger">*</span></label>
+                                        <input class="form-control" type="text" name="firstname" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="lastname">Last name <span class="text-danger">*</span></label>
+                                        <input class="form-control" type="text" name="lastname" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="phone">Phone <span class="text-danger">*</span></label>
+                                        <input class="form-control" type="text" name="phone" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -55,8 +68,7 @@
                                     <div class="form-group">
                                         <label for="password_confirmation">Confirm Password <span
                                                 class="text-danger">*</span></label>
-                                        <input class="form-control" type="password" name="password_confirmation"
-                                               required>
+                                        <input class="form-control" type="password" name="password_confirmation" required>
                                     </div>
                                 </div>
                             </div>
@@ -64,7 +76,7 @@
                                 <label for="role">Role <span class="text-danger">*</span></label>
                                 <select class="form-control" name="role" id="role" required>
                                     <option value="" selected disabled>Select Role</option>
-                                    @foreach(\Spatie\Permission\Models\Role::where('name', '!=', 'Super Admin')->get() as $role)
+                                    @foreach (\Spatie\Permission\Models\Role::where('name', '!=', 'Super Admin')->get() as $role)
                                         <option value="{{ $role->name }}">{{ $role->name }}</option>
                                     @endforeach
                                 </select>
@@ -98,10 +110,8 @@
 
 @section('third_party_scripts')
     <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
-    <script
-        src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
-    <script
-        src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
     <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
 @endsection
 
@@ -126,5 +136,3 @@
         });
     </script>
 @endpush
-
-

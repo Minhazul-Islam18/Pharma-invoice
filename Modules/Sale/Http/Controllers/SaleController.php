@@ -18,14 +18,16 @@ use Modules\Sale\Http\Requests\UpdateSaleRequest;
 class SaleController extends Controller
 {
 
-    public function index(SalesDataTable $dataTable) {
+    public function index(SalesDataTable $dataTable)
+    {
         abort_if(Gate::denies('access_sales'), 403);
 
         return $dataTable->render('sale::index');
     }
 
 
-    public function create() {
+    public function create()
+    {
         abort_if(Gate::denies('create_sales'), 403);
 
         Cart::instance('sale')->destroy();
@@ -34,7 +36,8 @@ class SaleController extends Controller
     }
 
 
-    public function store(StoreSaleRequest $request) {
+    public function store(StoreSaleRequest $request)
+    {
         DB::transaction(function () use ($request) {
             $due_amount = $request->total_amount - $request->paid_amount;
 
@@ -46,17 +49,19 @@ class SaleController extends Controller
                 $payment_status = 'Paid';
             }
 
+            $customer = Customer::select(['customer_firstname', 'customer_lastname'])->findOrFail($request->customer_id);
             $sale = Sale::create([
-                'date' => $request->date,
+                'date' => now()->format('Y-m-d'),
+                'reference' => 'PSL',
                 'customer_id' => $request->customer_id,
-                'customer_name' => Customer::findOrFail($request->customer_id)->customer_name,
+                'customer_name' => $customer->customer_firstname . ' ' . $customer->customer_lastname,
                 'tax_percentage' => $request->tax_percentage,
                 'discount_percentage' => $request->discount_percentage,
                 'shipping_amount' => $request->shipping_amount * 100,
                 'paid_amount' => $request->paid_amount * 100,
                 'total_amount' => $request->total_amount * 100,
                 'due_amount' => $due_amount * 100,
-                'status' => $request->status,
+                'status' => 'Completed',
                 'payment_status' => $payment_status,
                 'payment_method' => $request->payment_method,
                 'note' => $request->note,
@@ -92,7 +97,7 @@ class SaleController extends Controller
             if ($sale->paid_amount > 0) {
                 SalePayment::create([
                     'date' => $request->date,
-                    'reference' => 'INV/'.$sale->reference,
+                    'reference' => 'INV/' . $sale->reference,
                     'amount' => $sale->paid_amount,
                     'sale_id' => $sale->id,
                     'payment_method' => $request->payment_method
@@ -106,7 +111,8 @@ class SaleController extends Controller
     }
 
 
-    public function show(Sale $sale) {
+    public function show(Sale $sale)
+    {
         abort_if(Gate::denies('show_sales'), 403);
 
         $customer = Customer::findOrFail($sale->customer_id);
@@ -115,7 +121,8 @@ class SaleController extends Controller
     }
 
 
-    public function edit(Sale $sale) {
+    public function edit(Sale $sale)
+    {
         abort_if(Gate::denies('edit_sales'), 403);
 
         $sale_details = $sale->saleDetails;
@@ -147,7 +154,8 @@ class SaleController extends Controller
     }
 
 
-    public function update(UpdateSaleRequest $request, Sale $sale) {
+    public function update(UpdateSaleRequest $request, Sale $sale)
+    {
         DB::transaction(function () use ($request, $sale) {
 
             $due_amount = $request->total_amount - $request->paid_amount;
@@ -170,11 +178,12 @@ class SaleController extends Controller
                 $sale_detail->delete();
             }
 
+            $customer = Customer::select(['customer_firstname', 'customer_lastname'])->findOrFail($request->customer_id);
             $sale->update([
                 'date' => $request->date,
                 'reference' => $request->reference,
                 'customer_id' => $request->customer_id,
-                'customer_name' => Customer::findOrFail($request->customer_id)->customer_name,
+                'customer_name' => $customer->customer_firstname . ' ' . $customer->customer_lastname,
                 'tax_percentage' => $request->tax_percentage,
                 'discount_percentage' => $request->discount_percentage,
                 'shipping_amount' => $request->shipping_amount * 100,
@@ -221,7 +230,8 @@ class SaleController extends Controller
     }
 
 
-    public function destroy(Sale $sale) {
+    public function destroy(Sale $sale)
+    {
         abort_if(Gate::denies('delete_sales'), 403);
 
         $sale->delete();
