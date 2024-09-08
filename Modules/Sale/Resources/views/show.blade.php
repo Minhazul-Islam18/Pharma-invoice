@@ -24,7 +24,7 @@
                             <i class="bi bi-printer"></i> Print
                         </a>
                         <a target="_blank" class="btn btn-sm btn-info mfe-1 d-print-none"
-                            href="{{ route('sales.pdf', ['id' => $sale->id]) }}" {{-- href="{{ route('sales.pdf', $sale->id) }}" --}}>
+                            href="{{ route('sales.pdf', ['id' => $sale->id]) }}">
                             <i class="bi bi-save"></i> Save
                         </a>
                     </div>
