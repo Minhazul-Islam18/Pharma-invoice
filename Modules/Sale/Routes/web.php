@@ -56,7 +56,7 @@ Route::group(['middleware' => 'auth'], function () {
         $dompdf->render();
 
         // Stream the file (download in the browser)
-        return $dompdf->stream('example.pdf', ['Attachment' => 0]);  // Use 'Attachment' => 1 to force download
+        return $dompdf->stream('invoice.pdf', ['Attachment' => 0]);  // Use 'Attachment' => 1 to force download
     })->name('sales.pdf');
 
     Route::get('/sales/pos/pdf/{id}', function ($id) {
