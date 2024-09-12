@@ -53,8 +53,13 @@
                         <table style="width: 100%; margin-bottom: 20px;">
                             <tr>
                                 <td style="width: 20%; text-align: center;">
-                                    <img style="width: 48px;" src="{{ asset('images/invoice/00ohv6rs.bmp') }}"
-                                        alt="Company Logo">
+                                    <?php
+                                    $imagePath = public_path('images/invoice/00ohv6rs.png');
+                                    $imageData = base64_encode(file_get_contents($imagePath));
+                                    $src = 'data:image/png;base64,' . $imageData;
+                                    ?>
+
+                                    <img src="{{ $src }}" style="width: 48px;" alt="Company Logo">
                                 </td>
                                 <td style="width: 80%; text-align: center;">
                                     <h1 style="font-size: 24px; text-transform: uppercase; font-weight: bold;">
@@ -82,8 +87,14 @@
                                     </h5>
                                 </td>
                                 <td style="width: 33%; text-align: center; padding: 10px;">
-                                    <img class="img-fluid" style="max-width: 100%;"
-                                        src="{{ asset('images/invoice/2024-09-07_153328.png') }}" alt="Invoice Image">
+                                    <?php
+                                    $imagePath = public_path('images/invoice/2024-09-07_153328.png');
+                                    $imageData = base64_encode(file_get_contents($imagePath));
+                                    $src = 'data:image/png;base64,' . $imageData;
+                                    ?>
+
+                                    <img src="{{ $src }}" class="img-fluid" style="max-width: 100%;"
+                                        alt="Invoice Image">
                                 </td>
                             </tr>
                             <tr>

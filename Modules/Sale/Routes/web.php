@@ -42,6 +42,7 @@ Route::group(['middleware' => 'auth'], function () {
         // Initialize dompdf
         $dompdf = new Dompdf();
         $options = new Options();
+        // $options->set('isRemoteEnabled', true);
         $options->set('isHtml5ParserEnabled', true);
         $options->set('isPhpEnabled', true);  // Enable PHP within HTML if necessary
         $dompdf->setOptions($options);
@@ -50,13 +51,13 @@ Route::group(['middleware' => 'auth'], function () {
         $dompdf->loadHtml($html);
 
         // (Optional) Set paper size and orientation
-        $dompdf->setPaper('legal', 'landscape');
+        $dompdf->setPaper('a4', 'landscape');
 
         // Render the PDF
         $dompdf->render();
 
         // Stream the file (download in the browser)
-        return $dompdf->stream('invoice.pdf', ['Attachment' => 0]);  // Use 'Attachment' => 1 to force download
+        return $dompdf->stream('invoice.pdf', ['Attachment' => 0]);
     })->name('sales.pdf');
 
     Route::get('/sales/pos/pdf/{id}', function ($id) {

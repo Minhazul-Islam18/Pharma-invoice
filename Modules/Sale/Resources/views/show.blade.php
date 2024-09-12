@@ -32,7 +32,7 @@
                         <div class="row mb-3">
                             <div
                                 class="col-sm-2 col-12 px-0 d-flex align-items-center justify-content-center justify-content-sm-start">
-                                <img style="width: 48px" src="{{ asset('images/invoice/00ohv6rs.bmp') }}" alt="">
+                                <img style="width: 48px" src="{{ url('images/invoice/00ohv6rs.png') }}" alt="">
                             </div>
                             <div class="col-sm-10 col-12 d-flex align-items-center justify-content-center">
                                 <h1 class=" text-uppercase font-weight-bold h3">Healthcare Pharmaceuticals Ltd.</h1>
