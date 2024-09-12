@@ -3,7 +3,7 @@
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use App\Models\User;
-use Spatie\Permission\Models\Role;
+use App\Constants\Role;
 use Spatie\Browsershot\Browsershot;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;

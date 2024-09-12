@@ -3,10 +3,10 @@
 namespace Modules\Sale\Http\Controllers;
 
 use App\Models\User;
+use App\Constants\Role;
 use Modules\Sale\Entities\Sale;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
-use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Gate;
 use Modules\People\Entities\Customer;
 use Modules\Product\Entities\Product;

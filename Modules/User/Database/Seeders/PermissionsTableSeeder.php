@@ -5,6 +5,7 @@ namespace Modules\User\Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
+use App\Constants\Role as RoleConstant;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Permission\Models\Permission;
 
@@ -126,7 +127,7 @@ class PermissionsTableSeeder extends Seeder
         }
 
         $role = Role::create([
-            'name' => Role::ADMIN
+            'name' => RoleConstant::ADMIN
         ]);
 
         $role->givePermissionTo($permissions);
@@ -145,7 +146,7 @@ class PermissionsTableSeeder extends Seeder
         ];
 
         $role = Role::create([
-            'name' => Role::CUSTOMER
+            'name' => RoleConstant::CUSTOMER
         ]);
 
         $role->givePermissionTo($permissions);

@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
+use App\Constants\Role as RoleConstant;
 
 class SuperUserSeeder extends Seeder
 {
@@ -26,7 +27,7 @@ class SuperUserSeeder extends Seeder
         ]);
 
         $superAdmin = Role::create([
-            'name' => Role::SUPERADMIN
+            'name' => RoleConstant::SUPERADMIN
         ]);
 
         $user->assignRole($superAdmin);
@@ -42,7 +43,7 @@ class SuperUserSeeder extends Seeder
         ]);
 
         $customer = Role::where([
-            'name' => Role::CUSTOMER
+            'name' => RoleConstant::CUSTOMER
         ])->first();
 
         $user->assignRole($customer);
