@@ -43,14 +43,22 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
-                    <div class="card-header d-flex flex-wrap align-items-center">
-                        <div>
-                            Reference: <strong>{{ $sale->reference }}</strong>
-                        </div>
-                    </div>
+                    <table style="width: 100%;">
+                        <tbody>
+                            <tr>
+                                <td style="font-size:
+                        10px;">
+                                    Reference: <strong>{{ $sale->reference }}</strong>
+                                </td>
+                                <td style="font-size: 10px; text-align:right;">
+                                    Customer copy
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                     <div class="card-body" style="font-family: Arial, sans-serif;">
                         <!-- Header with Logo and Company Name -->
-                        <table style="width: 100%; margin-bottom: 20px;">
+                        <table style="width: 100%; margin-bottom: 6px;">
                             <tr>
                                 <td style="width: 20%; text-align: center;">
                                     <?php
@@ -62,7 +70,7 @@
                                     <img src="{{ $src }}" style="width: 48px;" alt="Company Logo">
                                 </td>
                                 <td style="width: 80%; text-align: center;">
-                                    <h1 style="font-size: 24px; text-transform: uppercase; font-weight: bold;">
+                                    <h1 style="font-size: 20px; text-transform: uppercase; font-weight: bold;">
                                         Healthcare Pharmaceuticals Ltd.
                                     </h1>
                                 </td>
@@ -73,7 +81,7 @@
                         <table
                             style="width: 100%; border: 1px solid #ccc; margin-bottom: 20px; border-collapse: collapse;">
                             <tr>
-                                <td style="width: 33%; border-right: 1px solid #ccc; padding: 10px;">
+                                <td style="font-size: 8px; width: 33%; border-right: 1px solid #ccc; padding: 2px;">
                                     <p style="margin: 0;">
                                         Nasir Trade Centre (Level-9 & 14)<br />
                                         89 Bir Uttam C.R. Datta Sarak, Dhaka- 1205.<br />
@@ -81,25 +89,23 @@
                                         Fax: +880-2-9632172
                                     </p>
                                 </td>
-                                <td
-                                    style="width: 33%; text-align: center; border-right: 1px solid #ccc; padding: 10px;">
-                                    <h5 style="font-size: 20px; text-transform: uppercase; font-weight: bold;">Invoice
+                                <td style="width: 33%; text-align: center; border-right: 1px solid #ccc; padding: 2px;">
+                                    <h5 style="font-size: 16px; text-transform: uppercase; font-weight: bold;">Invoice
                                     </h5>
                                 </td>
-                                <td style="width: 33%; text-align: center; padding: 10px;">
+                                <td style="width: 33%; text-align: center; padding: 2px;">
                                     <?php
                                     $imagePath = public_path('images/invoice/2024-09-07_153328.png');
                                     $imageData = base64_encode(file_get_contents($imagePath));
                                     $src = 'data:image/png;base64,' . $imageData;
                                     ?>
 
-                                    <img src="{{ $src }}" class="img-fluid" style="max-width: 100%;"
-                                        alt="Invoice Image">
+                                    <img src="{{ $src }}" style="height: 50px;" alt="Invoice Image">
                                 </td>
                             </tr>
                             <tr>
                                 <td
-                                    style="width: 33%; border-right: 1px solid #ccc; border-top: 1px solid #ccc; padding: 10px;">
+                                    style="font-size: 8px; width: 33%; border-right: 1px solid #ccc; border-top: 1px solid #ccc; padding: 7px;">
                                     <p style="margin: 0;">
                                         Moghbazar(Biotech) Sales Depot<br />
                                         Gulfesha Plaza (3rd Floor), Above Agora,<br />
@@ -109,9 +115,8 @@
                                     </p>
                                 </td>
                                 <td
-                                    style="width: 33%; border-right: 1px solid #ccc; border-top: 1px solid #ccc; padding: 10px;">
-                                    <h5
-                                        style="margin-bottom: 10px; border-bottom: 1px solid #ccc; padding-bottom: 10px;">
+                                    style="font-size: 8px; width: 33%; border-right: 1px solid #ccc; border-top: 1px solid #ccc; padding: 7px;">
+                                    <h5 style="margin-bottom: 3px; border-bottom: 1px solid #ccc; padding-bottom: 1px;">
                                         Customer Info:</h5>
                                     <p style="margin: 0;">
                                         <strong>{{ $customer->firstname . ' ' . $customer->lastname }}</strong>
@@ -120,7 +125,7 @@
                                     <p style="margin: 0;">Email: {{ $customer->email }}</p>
                                     <p style="margin: 0;">Phone: {{ $customer->phone }}</p>
                                 </td>
-                                <td style="width: 33%; border-top: 1px solid #ccc; padding: 10px;">
+                                <td style="font-size: 8px; width: 33%; border-top: 1px solid #ccc; padding: 7px;">
                                     <p style="margin: 0;">Date:
                                         {{ \Carbon\Carbon::parse($sale->date)->format('d M, Y') }}</p>
                                     <p style="margin: 0;">Invoice: <strong>INV/{{ $sale->reference }}</strong></p>
@@ -135,7 +140,7 @@
                         </table>
 
                         <!-- Doctor and Chamber Info -->
-                        <table style="width: 100%; margin-bottom: 0;">
+                        <table style="width: 100%; margin-bottom: 0;font-size: 8px; ">
                             <tr>
                                 <td style="padding: 10px;">
                                     <strong>Doctor name:</strong> <span>xxxxxxxxxxxx</span>
@@ -149,7 +154,7 @@
 
                     <div class="table-responsive-sm">
                         <table class="table table-striped mb-0"
-                            style="border-collapse: collapse; width: 100%; border: 1px solid #000000">
+                            style="font-size: 8px; border-collapse: collapse; width: 100%; border: 1px solid #000000">
                             <thead>
                                 <tr style="border-bottom: 1px solid #000;">
                                     <th class="align-middle" style="border-right: 1px solid #000;">SL.No.</th>
@@ -258,7 +263,7 @@
                         </table>
                     </div>
 
-                    <div style="padding: 10px; margin-top: 20px;">
+                    <div style="padding: 8px 0; font-size:10px; margin-top: 8px;">
                         <span>
                             <strong>Amount in words:</strong>
                             {{ ucfirst(str_replace('-', ' ', \Rmunate\Utilities\SpellNumber::value($sale->total_amount)->toLetters())) . ' Taka Only' }}
@@ -266,7 +271,7 @@
                         <p>{{ $sale?->note }}</p>
                     </div>
 
-                    <table style="width: 100%; margin-top: 80px;">
+                    <table style="width: 100%; margin-top: 15px;font-size:10px;">
                         <tbody>
                             <tr>
                                 <td style="text-align:center;">

@@ -51,7 +51,7 @@ Route::group(['middleware' => 'auth'], function () {
         $dompdf->loadHtml($html);
 
         // (Optional) Set paper size and orientation
-        $dompdf->setPaper('a4', 'landscape');
+        // $dompdf->setPaper('a4', 'landscape');
 
         // Render the PDF
         $dompdf->render();

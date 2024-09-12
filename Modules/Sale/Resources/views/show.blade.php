@@ -53,7 +53,7 @@
                             </div>
 
                             <div class="col-sm-4 mb-3 mb-md-0 border-bottom p-1">
-                                <img class=" img-fluid" src="{{ asset('images/invoice/2024-09-07_153328.png') }}"
+                                <img class=" h-100" src="{{ asset('images/invoice/2024-09-07_153328.png') }}"
                                     alt="">
                             </div>
 
