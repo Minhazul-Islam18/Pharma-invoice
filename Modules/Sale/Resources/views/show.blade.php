@@ -53,7 +53,7 @@
                             </div>
 
                             <div class="col-sm-4 mb-3 mb-md-0 border-bottom p-1">
-                                <img class=" h-100" src="{{ asset('images/invoice/2024-09-07_153328.png') }}"
+                                <img class=" img-fluid" src="{{ asset('images/invoice/2024-09-07_153328.png') }}"
                                     alt="">
                             </div>
 
@@ -149,9 +149,9 @@
 
                                         <td class="align-middle border-right">{{ $item?->product?->pack_size }}</td>
                                         <td class="align-middle border-right">{{ $item?->product?->batch_no }}</td>
-                                        <td class="align-middle border-right">{{ format_currency($item->unit_price) }}</td>
+                                        <td class="align-middle border-right">{{ $item->unit_price }}</td>
                                         <td class="align-middle border-right">
-                                            {{ format_currency($item->product_tax_amount) }}
+                                            {{ $item->product_tax_amount }}
                                         </td>
 
                                         <td class="align-middle border-right">
@@ -159,7 +159,7 @@
                                         </td>
 
                                         <td class="align-middle border-right">
-                                            {{ format_currency($item->product_discount_amount) }}
+                                            {{ $item->product_discount_amount }}
                                         </td>
                                         <td class=" align-middle border-right">
                                             @php
@@ -167,19 +167,19 @@
                                                     $item->unit_price * $item->quantity -
                                                     $item->product_discount_amount;
                                             @endphp
-                                            {{ format_currency($item->unit_price * $item->quantity - $item->product_discount_amount) }}
+                                            {{ $item->unit_price * $item->quantity - $item->product_discount_amount }}
                                         </td>
                                         <td class=" align-middle border-right">
                                             @php
                                                 $vat += $item->product_tax_amount;
                                             @endphp
-                                            {{ format_currency($item->product_tax_amount) }}
+                                            {{ $item->product_tax_amount }}
                                         </td>
                                         <td class="align-middle">
                                             @php
                                                 $subTotal += $item->sub_total;
                                             @endphp
-                                            {{ format_currency($item->sub_total) }}
+                                            {{ $item->sub_total }}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -189,13 +189,13 @@
                                         <strong>Sub total</strong>
                                     </td>
                                     <td class=" border-right">
-                                        {{ format_currency($mrp) }}
+                                        {{ $mrp }}
                                     </td>
                                     <td class=" border-right">
-                                        {{ format_currency($vat) }}
+                                        {{ $vat }}
                                     </td>
                                     <td>
-                                        {{ format_currency($subTotal) }}
+                                        {{ $subTotal }}
                                     </td>
                                 </tr>
                             </tbody>
@@ -208,15 +208,15 @@
                                     <tr>
                                         <td class="left border-top-0"><strong>Patient support
                                                 ({{ $sale->discount_percentage }}%)</strong></td>
-                                        <td class="right border-top-0">{{ format_currency($sale->discount_amount) }}</td>
+                                        <td class="right border-top-0">{{ $sale->discount_amount }}</td>
                                     </tr>
                                     {{-- <tr>
                                         <td class="left"><strong>Tax ({{ $sale->tax_percentage }}%)</strong></td>
-                                        <td class="right">{{ format_currency($sale->tax_amount) }}</td>
+                                        <td class="right">{{ ($sale->tax_amount) }}</td>
                                     </tr> --}}
                                     <tr>
                                         <td class="left"><strong>Grand Total</strong></td>
-                                        <td class="right"><strong>{{ format_currency($sale->total_amount) }}</strong>
+                                        <td class="right"><strong>{{ $sale->total_amount }}</strong>
                                         </td>
                                     </tr>
                                 </tbody>
