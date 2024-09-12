@@ -59,7 +59,7 @@
                             </div>
 
                             <div class="form-row">
-                                <div class="col-md-6">
+                                {{-- <div class="col-md-6">
                                     <label for="category_id">Category <span class="text-danger">*</span></label>
                                     <div class="input-group">
                                         <select class="form-control" name="category_id" id="category_id" required>
@@ -75,7 +75,7 @@
                                             </button>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="barcode_symbology">Barcode Symbology <span
@@ -194,7 +194,7 @@
     </div>
 
     <!-- Create Category Modal -->
-    @include('product::includes.category-modal')
+    {{-- @include('product::includes.category-modal') --}}
 @endsection
 
 @section('third_party_scripts')

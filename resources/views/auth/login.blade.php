@@ -74,8 +74,8 @@
                                     </button>
                                 </div>
                                 <div class="col-8 text-right">
-                                    <a class="btn btn-link px-0" href="{{ route('password.request') }}">
-                                        Forgot password?
+                                    <a class="btn btn-link px-0" href="{{ route('register') }}">
+                                        Register here
                                     </a>
                                 </div>
                             </div>

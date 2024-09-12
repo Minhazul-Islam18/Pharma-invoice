@@ -11,14 +11,14 @@
             <i class="c-sidebar-nav-icon bi bi-journal-bookmark" style="line-height: 1;"></i> Products
         </a>
         <ul class="c-sidebar-nav-dropdown-items">
-            @can('access_product_categories')
+            {{-- @can('access_product_categories')
                 <li class="c-sidebar-nav-item">
                     <a class="c-sidebar-nav-link {{ request()->routeIs('product-categories.*') ? 'c-active' : '' }}"
                         href="{{ route('product-categories.index') }}">
                         <i class="c-sidebar-nav-icon bi bi-collection" style="line-height: 1;"></i> Categories
                     </a>
                 </li>
-            @endcan
+            @endcan --}}
             @can('create_products')
                 <li class="c-sidebar-nav-item">
                     <a class="c-sidebar-nav-link {{ request()->routeIs('products.create') ? 'c-active' : '' }}"
@@ -45,7 +45,7 @@
     </li>
 @endcan
 
-@can('access_adjustments')
+{{-- @can('access_adjustments')
     <li class="c-sidebar-nav-item c-sidebar-nav-dropdown {{ request()->routeIs('adjustments.*') ? 'c-show' : '' }}">
         <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
             <i class="c-sidebar-nav-icon bi bi-clipboard-check" style="line-height: 1;"></i> Stock Adjustments
@@ -145,7 +145,7 @@
             </li>
         </ul>
     </li>
-@endcan
+@endcan --}}
 
 @can('access_sales')
     <li
@@ -216,7 +216,7 @@
     </li>
 @endcan
 
-@can('access_expenses')
+{{-- @can('access_expenses')
     <li
         class="c-sidebar-nav-item c-sidebar-nav-dropdown {{ request()->routeIs('expenses.*') || request()->routeIs('expense-categories.*') ? 'c-show' : '' }}">
         <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
@@ -321,7 +321,7 @@
             </li>
         </ul>
     </li>
-@endcan
+@endcan --}}
 
 @can('access_user_management')
     <li class="c-sidebar-nav-item c-sidebar-nav-dropdown {{ request()->routeIs('roles*') ? 'c-show' : '' }}">

@@ -41,12 +41,12 @@ class PosController extends Controller
             } else {
                 $payment_status = 'Paid';
             }
-            $customer = Customer::select(['customer_firstname', 'customer_lastname'])->findOrFail($request->customer_id);
+            $customer = auth()->user();
             $sale = Sale::create([
                 'date' => now()->format('Y-m-d'),
                 'reference' => 'PSL',
                 'customer_id' => $request->customer_id,
-                'customer_name' => $customer->customer_firstname . ' ' . $customer->customer_lastname,
+                'customer_name' => $customer->firstname . ' ' . $customer->lastname,
                 'tax_percentage' => $request->tax_percentage,
                 'discount_percentage' => $request->discount_percentage,
                 'shipping_amount' => $request->shipping_amount * 100,

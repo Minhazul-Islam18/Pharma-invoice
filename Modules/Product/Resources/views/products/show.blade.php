@@ -14,7 +14,12 @@
     <div class="container-fluid mb-4">
         <div class="row mb-3">
             <div class="col-md-12">
-                {!! \Milon\Barcode\Facades\DNS1DFacade::getBarCodeSVG($product->product_code, $product->product_barcode_symbology, 2, 110) !!}
+                {!! \Milon\Barcode\Facades\DNS1DFacade::getBarCodeSVG(
+                    $product->product_code,
+                    $product->product_barcode_symbology,
+                    2,
+                    110,
+                ) !!}
             </div>
         </div>
         <div class="row">
@@ -35,10 +40,10 @@
                                     <th>Name</th>
                                     <td>{{ $product->product_name }}</td>
                                 </tr>
-                                <tr>
+                                {{-- <tr>
                                     <th>Category</th>
                                     <td>{{ $product->category->category_name }}</td>
-                                </tr>
+                                </tr> --}}
                                 <tr>
                                     <th>Cost</th>
                                     <td>{{ format_currency($product->product_cost) }}</td>
@@ -69,7 +74,7 @@
                                 <tr>
                                     <th>Tax Type</th>
                                     <td>
-                                        @if($product->product_tax_type == 1)
+                                        @if ($product->product_tax_type == 1)
                                             Exclusive
                                         @elseif($product->product_tax_type == 2)
                                             Inclusive
@@ -94,7 +99,8 @@
                         @forelse($product->getMedia('images') as $media)
                             <img src="{{ $media->getUrl() }}" alt="Product Image" class="img-fluid img-thumbnail mb-2">
                         @empty
-                            <img src="{{ $product->getFirstMediaUrl('images') }}" alt="Product Image" class="img-fluid img-thumbnail mb-2">
+                            <img src="{{ $product->getFirstMediaUrl('images') }}" alt="Product Image"
+                                class="img-fluid img-thumbnail mb-2">
                         @endforelse
                     </div>
                 </div>
@@ -102,6 +108,3 @@
         </div>
     </div>
 @endsection
-
-
-
