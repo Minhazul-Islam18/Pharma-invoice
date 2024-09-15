@@ -77,7 +77,7 @@
                         10px;">
                                 </td>
                                 <td
-                                    style="font-size: 16px; text-align:right;font-family: 'Times New Roman', Times, serif;">
+                                    style="font-size: 16px; text-align:right;font-family: 'Times New Roman', Times, serif; padding-right: 20px; font-weight: bold;">
                                     Customer copy
                                 </td>
                             </tr>
@@ -285,7 +285,7 @@
                                             style="padding: 0;text-align: center; border-right: 1px solid #000;">
                                             {{ $item->product_code }}</td>
                                         <td class="align-middle p-0 text-center"
-                                            style="padding: 0;text-align: left; border-right: 1px solid #000;">
+                                            style="padding: 0 4px;text-align: left; border-right: 1px solid #000;">
                                             {{ $item->product_name }}</td>
                                         <td class="align-middle p-0 text-center"
                                             style="padding: 0;text-align: center; border-right: 1px solid #000;">
@@ -348,7 +348,7 @@
                                 </tr>
                                 <tr>
                                     <td class="align-middle" colspan="10"
-                                        style="text-align:right; padding: 5px 5px; font-align: 14px; line-height: 20px;">
+                                        style="text-align:right; padding: 5px 5px; font-align: 14px; line-height: 16px;">
                                         <span
                                             style="display: block; text-align:right; margin-bottom:0px; vertical-align: middle;">
                                             <strong style="width: 120px; display: inline-block;text-align:left;">Grand
@@ -378,7 +378,7 @@
                                         style="border-right: 1px solid #000; text-align: center; padding: 5px 0;">
                                         {{ $vat }}</td> --}}
                                     <td class="align-middle" colspan="2"
-                                        style="border-right: none; text-align: center; padding: 5px 5px; font-align: 14px; line-height: 20px;">
+                                        style="border-right: none; text-align: center; padding: 5px 5px; font-align: 14px; line-height: 16px;">
                                         <span
                                             style="display: block; text-align:right; margin-bottom:0px; vertical-align: middle;">
                                             <strong
@@ -463,7 +463,8 @@
                             </tbody>
                         </table>
                     </div> --}}
-                    <div style="padding: 8px 0; font-size:10px; margin-top: 8px;">
+                    <div
+                        style="padding: 8px 0; font-size: 11px;line-height: 16px; margin-top: 8px; font-family: 'Times New Roman', Times, serif;">
                         <span>
                             <strong>Amount in words:</strong>
                             {{ ucfirst(str_replace('-', ' ', \Rmunate\Utilities\SpellNumber::value($payableAmont)->toLetters())) . ' Taka Only' }}

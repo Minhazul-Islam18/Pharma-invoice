@@ -59,7 +59,7 @@ Route::group(['middleware' => 'auth'], function () {
         $width = $canvas->get_width();
         $height = $canvas->get_height();
 
-        $canvas->page_text($width - 60, $height - 30, "Page {PAGE_NUM} of {PAGE_COUNT}", $font, $size, array(0, 0, 0));
+        $canvas->page_text($width - 60, $height - 30, "Page {PAGE_NUM} / {PAGE_COUNT}", $font, $size, array(0, 0, 0));
 
 
         // Stream the file (download in the browser)

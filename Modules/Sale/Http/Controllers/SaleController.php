@@ -58,7 +58,7 @@ class SaleController extends Controller
                 'customer_phone' => $request->customer_phone,
                 'customer_code' => $this->generateUniqueReference('001041', 'customer_code'),
                 'customer_id' => $customer->id,
-                'customer_name' => $customer->firstname . ' ' . $customer->lastname,
+                'customer_name' => $request->customer_name,
                 'tax_percentage' => $request->tax_percentage ?? 0,
                 'discount_percentage' => $request->discount_percentage,
                 'shipping_amount' => $request->shipping_amount ? $request->shipping_amount * 100 : 0,

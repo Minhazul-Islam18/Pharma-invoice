@@ -24,8 +24,9 @@ class StoreSaleRequest extends FormRequest
             'status' => 'required|string|max:255',
             'payment_method' => 'required|string|max:255',
             'note' => 'nullable|string|max:1000',
-            'customer_address' => 'nullable|string|max:255',
-            'customer_phone' => 'nullable|string|max:20',
+            'customer_name' => 'required|string|max:255',
+            'customer_address' => 'required|string|max:255',
+            'customer_phone' => 'required|string|max:20',
         ];
     }
 

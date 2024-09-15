@@ -70,7 +70,11 @@ class SalesDataTable extends DataTable
                 ->className('text-center align-middle'),
 
             Column::make('customer_name')
-                ->title('Customer')
+                ->title('Customer name')
+                ->className('text-center align-middle'),
+
+            Column::make('customer_phone')
+                ->title('Customer number')
                 ->className('text-center align-middle'),
 
             Column::computed('status')
