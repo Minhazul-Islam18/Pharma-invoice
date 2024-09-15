@@ -50,11 +50,17 @@ Route::group(['middleware' => 'auth'], function () {
         // Load HTML content
         $dompdf->loadHtml($html);
 
-        // (Optional) Set paper size and orientation
-        // $dompdf->setPaper('a4', 'portrait');
-
         // Render the PDF
         $dompdf->render();
+        // Add page numbers
+        $canvas = $dompdf->getCanvas();
+        $font = $dompdf->getFontMetrics()->get_font("Helvetica", "normal");
+        $size = 10;
+        $width = $canvas->get_width();
+        $height = $canvas->get_height();
+
+        $canvas->page_text($width - 60, $height - 30, "Page {PAGE_NUM} of {PAGE_COUNT}", $font, $size, array(0, 0, 0));
+
 
         // Stream the file (download in the browser)
         return $dompdf->stream('invoice.pdf', ['Attachment' => 0]);

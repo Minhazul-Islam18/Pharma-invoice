@@ -53,10 +53,13 @@ class SaleController extends Controller
             $customer = auth()->user();
             $sale = Sale::create([
                 'date' => now()->format('Y-m-d'),
-                'reference' => 'PSL',
+                'reference' => $this->generateUniqueReference('929036', 'reference'),
+                'customer_address' => $request->customer_address,
+                'customer_phone' => $request->customer_phone,
+                'customer_code' => $this->generateUniqueReference('001041', 'customer_code'),
                 'customer_id' => $customer->id,
                 'customer_name' => $customer->firstname . ' ' . $customer->lastname,
-                'tax_percentage' => $request->tax_percentage,
+                'tax_percentage' => $request->tax_percentage ?? 0,
                 'discount_percentage' => $request->discount_percentage,
                 'shipping_amount' => $request->shipping_amount ? $request->shipping_amount * 100 : 0,
                 'paid_amount' => $request->paid_amount * 100,
@@ -67,7 +70,7 @@ class SaleController extends Controller
                 'payment_method' => $request->payment_method,
                 'note' => $request->note,
                 'tax_amount' => Cart::instance('sale')->tax() * 100,
-                'discount_amount' => Cart::instance('sale')->discount() * 100,
+                'discount_amount' => ($request->total_amount / 100 * $request->discount_percentage) * 100,
             ]);
 
             foreach (Cart::instance('sale')->content() as $cart_item) {
@@ -191,6 +194,8 @@ class SaleController extends Controller
                 'reference' => $request->reference,
                 'customer_id' => $customer->id,
                 'customer_name' => $customer->firstname . ' ' . $customer->lastname,
+                'customer_address' => $request->customer_address,
+                'customer_phone' => $request->customer_phone,
                 'tax_percentage' => $request->tax_percentage,
                 'discount_percentage' => $request->discount_percentage,
                 'shipping_amount' => $request->shipping_amount ? $request->shipping_amount * 100 : 0,
@@ -246,5 +251,22 @@ class SaleController extends Controller
         toast('Sale Deleted!', 'warning');
 
         return redirect()->route('sales.index');
+    }
+
+    // Function to generate unique reference with prefix '929036' and 4 random digits
+    function generateUniqueReference($prefix, $column)
+    {
+        do {
+            // Generate random 4 digits
+            $randomDigits = mt_rand(1000, 9999);
+
+            // Combine the prefix and random digits
+            $reference = $prefix . $randomDigits;
+
+            // Check if the reference already exists in the sales table
+            $exists = Sale::where($column, $reference)->exists();
+        } while ($exists);
+
+        return $reference;
     }
 }

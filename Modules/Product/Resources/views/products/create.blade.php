@@ -133,18 +133,20 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="product_order_tax">Tax (%)</label>
-                                        <input type="number" class="form-control" name="product_order_tax"
-                                            value="{{ old('product_order_tax') }}" min="1">
+                                        <input type="number" class="form-control" name="" disabled
+                                            value="13" min="13" max="13">
+                                        <input type="hidden" name="product_order_tax" value="13">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="product_tax_type">Tax type</label>
-                                        <select class="form-control" name="product_tax_type" id="product_tax_type">
-                                            <option value="" selected>Select Tax Type</option>
+                                        <select class="form-control" id="product_tax_type" disabled>
+                                            <option value="">Select Tax Type</option>
                                             <option value="1">Exclusive</option>
-                                            <option value="2">Inclusive</option>
+                                            <option value="2" selected>Inclusive</option>
                                         </select>
+                                        <input type="hidden" name="product_tax_type" value="2">
                                     </div>
                                 </div>
                                 <div class="col-md-4">

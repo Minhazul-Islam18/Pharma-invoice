@@ -11,7 +11,7 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container-fluid" style="font-family: 'Times New Roman', Times, serif;">
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
@@ -35,7 +35,7 @@
                                 <img style="width: 48px" src="{{ url('images/invoice/00ohv6rs.png') }}" alt="">
                             </div>
                             <div class="col-sm-10 col-12 d-flex align-items-center justify-content-center">
-                                <h1 class=" text-uppercase font-weight-bold h3">Healthcare Pharmaceuticals Ltd.</h1>
+                                <h1 class=" font-weight-bold h3">Healthcare Pharmaceuticals Ltd.</h1>
                             </div>
                         </div>
                         <div class="row mb-4 border">
@@ -69,17 +69,17 @@
 
                             <div class="col-sm-4 mb-3 mb-md-0 border-right">
                                 <h5 class="mb-2 border-bottom pb-2">Customer Info:</h5>
+                                <div>Customer code: {{ $sale->customer_code }}</div>
                                 <div>
                                     <strong>{{ $customer->firstname . ' ' . $customer->lastname }}</strong>
                                 </div>
-                                <div>{{ $customer->address }}</div>
-                                <div>Email: {{ $customer->email }}</div>
-                                <div>Phone: {{ $customer->phone }}</div>
+                                <div>{{ $sale->customer_address }}</div>
+                                <div>Phone: {{ $sale->customer_phone }}</div>
                             </div>
 
-                            <div class="col-sm-4 mb-3 mb-md-0">
+                            <div class="col-sm-4 mb-3 mb-md-0 py-2">
                                 <div>Date: {{ \Carbon\Carbon::parse($sale->date)->format('d M, Y') }}</div>
-                                <div>Invoice: <strong>INV/{{ $sale->reference }}</strong></div>
+                                <div>Invoice no: <strong>INV/{{ $sale->reference }}</strong></div>
                                 <div>Pay mode: <strong>{{ $sale->payment_method }}</strong></div>
                                 <div>Area: <span>{{ $superAdmin->area }}</span>
                                 </div>
@@ -89,6 +89,9 @@
                                 </div>
                                 <div>Delivered by: <span>{{ $superAdmin->delivered_by }}</span>
                                 </div>
+                                <div>Delivery date: <span>___________________</span>
+                                </div>
+
                                 {{-- <div>
                                     Status: <strong>{{ $sale->status }}</strong>
                                 </div>
@@ -101,12 +104,12 @@
                         <div class="row mb-0">
                             <div class="col p-0">
                                 <div class="d-block">
-                                    <span>Doctor name:</span>
-                                    <span>xxxxxxxxxxxx</span>
+                                    <span style="width: 80px; display: inline-block;">Doctor name</span>
+                                    <span>:___________________</span>
                                 </div>
                                 <div class="d-block">
-                                    <span>Chamber name:</span>
-                                    <span>xxxxxxxxxxxx</span>
+                                    <span style="width: 80px; display: inline-block;">Chamber</span>
+                                    <span>:___________________</span>
                                 </div>
                             </div>
                         </div>
@@ -115,18 +118,19 @@
                         <table class="table table-striped mb-0">
                             <thead>
                                 <tr>
-                                    <th class="align-middle border-right">SL.No.</th>
-                                    <th class="align-middle border-right">Product code</th>
-                                    <th class="align-middle border-right">Product</th>
-                                    <th class="align-middle border-right">Pack size UOM</th>
-                                    <th class="align-middle border-right">Batch number</th>
-                                    <th class="align-middle border-right">MRP (TK)</th>
-                                    <th class="align-middle border-right">Vat (TK)</th>
-                                    <th class="align-middle border-right">Quantity</th>
-                                    <th class="align-middle border-right">Discount</th>
-                                    <th class="align-middle border-right">MRP (TK) value</th>
-                                    <th class="align-middle border-right">Vat (TK) value</th>
-                                    <th class="align-middle"> Total value </th>
+                                    <th class="p-0 align-middle text-center border-right">SL.No.</th>
+                                    <th class="p-0 align-middle text-center border-right">Product code</th>
+                                    <th class="p-0 align-middle text-center border-right" style="width: 170px">Product Name
+                                    </th>
+                                    <th class="p-0 align-middle text-center border-right">Pack size UOM</th>
+                                    <th class="p-0 align-middle text-center border-right">Batch number</th>
+                                    <th class="p-0 align-middle text-center border-right">MRP (TK)</th>
+                                    <th class="p-0 align-middle text-center border-right">Vat (TK)</th>
+                                    <th class="p-0 align-middle text-center border-right">Invoice Qty</th>
+                                    <th class="p-0 align-middle text-center border-right">Bonus Qty</th>
+                                    <th class="p-0 align-middle text-center border-right">MRP (TK) value</th>
+                                    <th class="p-0 align-middle text-center border-right">Vat (TK) value</th>
+                                    <th class="p-0 align-middle text-center"> Total value </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -137,45 +141,45 @@
                                 @endphp
                                 @foreach ($sale->saleDetails as $index => $item)
                                     <tr class=" border-bottom">
-                                        <td class="align-middle border-right">
+                                        <td class="align-middle p-0 border-right text-center">
                                             {{ $index + 1 }}
                                         </td>
-                                        <td class="align-middle border-right">
+                                        <td class="align-middle p-0 border-right text-center">
                                             {{ $item->product_code }}
                                         </td>
-                                        <td class="align-middle border-right">
+                                        <td class="align-middle p-0 border-right text-center">
                                             {{ $item->product_name }}
                                         </td>
 
-                                        <td class="align-middle border-right">{{ $item?->product?->pack_size }}</td>
-                                        <td class="align-middle border-right">{{ $item?->product?->batch_no }}</td>
-                                        <td class="align-middle border-right">{{ $item->unit_price }}</td>
-                                        <td class="align-middle border-right">
+                                        <td class="align-middle p-0 border-right text-center">
+                                            {{ $item?->product?->pack_size }}</td>
+                                        <td class="align-middle p-0 border-right text-center">
+                                            {{ $item?->product?->batch_no }}</td>
+                                        <td class="align-middle p-0 border-right text-center">{{ $item->price }}</td>
+                                        <td class="align-middle p-0 border-right text-center">
                                             {{ $item->product_tax_amount }}
                                         </td>
 
-                                        <td class="align-middle border-right">
+                                        <td class="align-middle p-0 border-right text-center">
                                             {{ $item->quantity }}
                                         </td>
 
-                                        <td class="align-middle border-right">
+                                        <td class="align-middle p-0 border-right text-center">
                                             {{ $item->product_discount_amount }}
                                         </td>
-                                        <td class=" align-middle border-right">
+                                        <td class=" align-middle border-right text-center">
                                             @php
-                                                $mrp +=
-                                                    $item->unit_price * $item->quantity -
-                                                    $item->product_discount_amount;
+                                                $mrp += $item->price * $item->quantity - $item->product_discount_amount;
                                             @endphp
-                                            {{ $item->unit_price * $item->quantity - $item->product_discount_amount }}
+                                            {{ $item->price * $item->quantity - $item->product_discount_amount }}
                                         </td>
-                                        <td class=" align-middle border-right">
+                                        <td class=" align-middle border-right text-center">
                                             @php
-                                                $vat += $item->product_tax_amount;
+                                                $vat += $item->product_tax_amount * $item->quantity;
                                             @endphp
-                                            {{ $item->product_tax_amount }}
+                                            {{ $item->product_tax_amount * $item->quantity }}
                                         </td>
-                                        <td class="align-middle">
+                                        <td class="align-middle p-0 text-center">
                                             @php
                                                 $subTotal += $item->sub_total;
                                             @endphp
@@ -184,9 +188,8 @@
                                     </tr>
                                 @endforeach
                                 <tr class=" border-bottom">
-                                    <td colspan="8"></td>
-                                    <td class=" border-left border-right">
-                                        <strong>Sub total</strong>
+                                    <td class=" border-left border-right text-right" colspan="9">
+                                        <strong style="font-size: 17px">Sub total</strong>
                                     </td>
                                     <td class=" border-right">
                                         {{ $mrp }}
@@ -206,19 +209,32 @@
                             <table class="table">
                                 <tbody>
                                     <tr>
-                                        <td class="left border-top-0"><strong>Patient support
-                                                ({{ $sale->discount_percentage }}%)</strong></td>
+                                        <td class="left"><strong>Grand Total</strong></td>
+                                        <td class="right"><strong>{{ $sale->total_amount }}</strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="left border-top-0"><strong>Patient support</strong></td>
+                                        <td class="right border-top-0">
+                                            @php
+                                                $ps = ($sale->total_amount / 100) * 12;
+                                            @endphp
+                                            {{ $ps }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="left border-top-0"><strong>Less discount</strong></td>
                                         <td class="right border-top-0">{{ $sale->discount_amount }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="left border-top-0"><strong>Payable amount</strong></td>
+                                        <td class="right border-top-0">
+                                            {{ $sale->total_amount - ($sale->discount_amount + $ps) }}
+                                        </td>
                                     </tr>
                                     {{-- <tr>
                                         <td class="left"><strong>Tax ({{ $sale->tax_percentage }}%)</strong></td>
                                         <td class="right">{{ ($sale->tax_amount) }}</td>
                                     </tr> --}}
-                                    <tr>
-                                        <td class="left"><strong>Grand Total</strong></td>
-                                        <td class="right"><strong>{{ $sale->total_amount }}</strong>
-                                        </td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -228,7 +244,15 @@
                             <strong>Amount in words:</strong>
                             {{ ucfirst(str_replace('-', ' ', \Rmunate\Utilities\SpellNumber::value($sale->total_amount)->toLetters())) . ' Taka Only' }}
                         </span>
-                        <p>{{ $sale?->note }}</p>
+                        {{-- <p>
+                            <img src="{{ asset('images/invoice/invoice-note.png') }}" alt="">
+                            <?php
+                            $imagePath = public_path('images/invoice/invoice-note.png');
+                            $imageData = base64_encode(file_get_contents($imagePath));
+                            $src = 'data:image/png;base64,' . $imageData;
+                            ?>
+                            <img src="{{ $src }}" alt="">
+                        </p> --}}
                     </div>
                 </div>
             </div>

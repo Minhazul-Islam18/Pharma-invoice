@@ -12,7 +12,9 @@ class Sale extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $guarded = [
+        'id'
+    ];
 
     public function saleDetails()
     {
@@ -24,15 +26,15 @@ class Sale extends Model
         return $this->hasMany(SalePayment::class, 'sale_id', 'id');
     }
 
-    public static function boot()
-    {
-        parent::boot();
+    // public static function boot()
+    // {
+    //     parent::boot();
 
-        static::creating(function ($model) {
-            $number = Sale::max('id') + 1;
-            $model->reference = make_reference_id('SL', $number);
-        });
-    }
+    //     static::creating(function ($model) {
+    //         $number = Sale::max('id') + 1;
+    //         $model->reference = make_reference_id('SL', $number);
+    //     });
+    // }
 
     public function scopeCompleted($query)
     {
