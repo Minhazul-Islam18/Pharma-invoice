@@ -71,7 +71,7 @@
                                 <h5 class="mb-2 border-bottom pb-2">Customer Info:</h5>
                                 <div>Customer code: {{ $sale->customer_code }}</div>
                                 <div>
-                                    <strong>{{ $customer->firstname . ' ' . $customer->lastname }}</strong>
+                                    <strong>{{ $sale->customer_name }}</strong>
                                 </div>
                                 <div>{{ $sale->customer_address }}</div>
                                 <div>Phone: {{ $sale->customer_phone }}</div>
@@ -105,11 +105,11 @@
                             <div class="col p-0">
                                 <div class="d-block">
                                     <span style="width: 80px; display: inline-block;">Doctor name</span>
-                                    <span>:___________________</span>
+                                    <span>:{{ $sale->doctor_name }}</span>
                                 </div>
                                 <div class="d-block">
                                     <span style="width: 80px; display: inline-block;">Chamber</span>
-                                    <span>:___________________</span>
+                                    <span>:{{ $sale->chamber_name }}</span>
                                 </div>
                             </div>
                         </div>
@@ -165,7 +165,6 @@
                                         </td>
 
                                         <td class="align-middle p-0 border-right text-center">
-                                            {{ $item->product_discount_amount }}
                                         </td>
                                         <td class=" align-middle border-right text-center">
                                             @php
@@ -194,7 +193,7 @@
                                     <td class=" border-right">
                                         {{ $mrp }}
                                     </td>
-                                    <td class=" border-right">
+                                    <td class=" border-right text-center">
                                         {{ $vat }}
                                     </td>
                                     <td>

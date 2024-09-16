@@ -25,13 +25,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/app/pos', 'PosController@index')->name('app.pos.index');
     Route::post('/app/pos', 'PosController@store')->name('app.pos.store');
 
-    //Generate PDF
     Route::get('/sales/pdf/{id}', function ($id) {
         $sale = \Modules\Sale\Entities\Sale::with('customer')->find($id);
         $superAdmin = User::whereHas('roles', function ($query) {
             $query->where('name', Role::SUPERADMIN)
                 ->orWhere('name', Role::ADMIN);
         })->first();
+
         // Render the view to HTML
         $html = view('sale::print', [
             'sale' => $sale,
@@ -42,25 +42,47 @@ Route::group(['middleware' => 'auth'], function () {
         // Initialize dompdf
         $dompdf = new Dompdf();
         $options = new Options();
-        // $options->set('isRemoteEnabled', true);
+
+        // Enable HTML5 parsing and PHP
         $options->set('isHtml5ParserEnabled', true);
-        $options->set('isPhpEnabled', true);  // Enable PHP within HTML if necessary
+        $options->set('isPhpEnabled', true);
+
+        // Set options to dompdf
         $dompdf->setOptions($options);
 
-        // Load HTML content
+        // Set paper size
+        $dompdf->setPaper('A4');
+
+        // Use CSS to remove all margins and padding (set them to 0)
+        $css = "
+    @page {
+        margin: 0mm;
+    }
+    body, html {
+        padding: 15px 15px;
+                margin: 0;
+                margin-bottom: 40px !important;
+        display:block;
+    }
+    ";
+
+        // Add your CSS and HTML content
+        $html = "<style>{$css}</style>" . $html;
+
+        // Load HTML content with CSS
         $dompdf->loadHtml($html);
 
         // Render the PDF
         $dompdf->render();
-        // Add page numbers
-        $canvas = $dompdf->getCanvas();
-        $font = $dompdf->getFontMetrics()->get_font("Helvetica", "normal");
-        $size = 10;
-        $width = $canvas->get_width();
-        $height = $canvas->get_height();
 
-        $canvas->page_text($width - 60, $height - 30, "Page {PAGE_NUM} / {PAGE_COUNT}", $font, $size, array(0, 0, 0));
+        // // Add page numbers
+        // $canvas = $dompdf->getCanvas();
+        // $font = $dompdf->getFontMetrics()->get_font("Helvetica", "normal");
+        // $size = 10;
+        // $width = $canvas->get_width();
+        // $height = $canvas->get_height();
 
+        // $canvas->page_text($width - 60, $height - 30, "Page {PAGE_NUM} / {PAGE_COUNT}", $font, $size, array(0, 0, 0));
 
         // Stream the file (download in the browser)
         return $dompdf->stream('invoice.pdf', ['Attachment' => 0]);

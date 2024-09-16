@@ -95,7 +95,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4">
+                                {{-- <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="paid_amount">Amount Received <span class="text-danger">*</span></label>
                                         <div class="input-group">
@@ -108,7 +108,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
 
                             <div class="form-group">
@@ -130,24 +130,21 @@
 @endsection
 
 @push('page_scripts')
-    {{-- <script src="{{ asset('js/jquery-mask-money.js') }}"></script>
-    <script>
+    {{-- <script src="{{ asset('js/jquery-mask-money.js') }}"></script> --}}
+    {{-- <script>
         $(document).ready(function() {
-            $('#paid_amount').maskMoney({
-                prefix: '{{ settings()->currency->symbol }}',
-                thousands: '{{ settings()->currency->thousand_separator }}',
-                decimal: '{{ settings()->currency->decimal_separator }}',
-                allowZero: true,
-            });
+            console.log(totalWithShipping);
 
-            $('#getTotalAmount').click(function() {
-                $('#paid_amount').maskMoney('mask', {{ Cart::instance('sale')->total() }});
+            // if (totalWithShipping) {
+            totalWithShipping.on('change', function() {
+                // Check if the value is not null or empty
+                console.log(totalWithShipping);
+                $('#paid_amount').val(totalWithShipping);
+                console.log($('#paid_amount').val());
             });
-
-            $('#sale-form').submit(function() {
-                var paid_amount = $('#paid_amount').maskMoney('unmasked')[0];
-                $('#paid_amount').val(paid_amount);
-            });
+            // } else {
+            //     console.log('#total_amount field does not exist');
+            // }
         });
     </script> --}}
 @endpush

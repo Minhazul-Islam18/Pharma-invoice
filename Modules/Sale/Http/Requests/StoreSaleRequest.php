@@ -27,6 +27,8 @@ class StoreSaleRequest extends FormRequest
             'customer_name' => 'required|string|max:255',
             'customer_address' => 'required|string|max:255',
             'customer_phone' => 'required|string|max:20',
+            'doctor_name' => 'required|string|max:50',
+            'chamber_name' => 'required|string|max:50',
         ];
     }
 

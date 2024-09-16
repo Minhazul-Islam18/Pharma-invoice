@@ -124,27 +124,25 @@
         </div>
     </div>
 
-    <input type="hidden" name="total_amount" value="{{ $total_with_shipping }}">
+    <input type="hidden" name="total_amount" id="total_amount" value="{{ $total_with_shipping }}">
 
     <div class="form-row">
         <div class="col-lg-4">
             <div class="form-group">
                 <label for="customer_name">Customer Name</label>
-                <input wire:model.blur="customer_name" type="text" class="form-control" name="customer_name"
-                    required>
+                <input type="text" class="form-control" name="customer_name" required>
             </div>
         </div>
         <div class="col-lg-4">
             <div class="form-group">
                 <label for="customer_phone">Customer Phone</label>
-                <input wire:model.blur="customer_phone" type="tel" class="form-control" name="customer_phone"
-                    required>
+                <input type="tel" class="form-control" name="customer_phone" required>
             </div>
         </div>
         <div class="col-lg-4">
             <div class="form-group">
                 <label for="customer_address">Customer Address</label>
-                <textarea wire:model.blur="customer_address" class="form-control" name="customer_address" required></textarea>
+                <textarea class="form-control" name="customer_address" required></textarea>
             </div>
         </div>
         <div class="col-lg-4">
@@ -152,6 +150,32 @@
                 <label for="discount_percentage">Discount (%)</label>
                 <input wire:model.blur="global_discount" type="number" class="form-control" name="discount_percentage"
                     min="0" max="100" value="{{ $global_discount > 0 ? $global_discount : '' }}" required>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="form-group">
+                <label for="doctor_name">Doctor name</label>
+                <input type="text" class="form-control" name="doctor_name" required>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="form-group">
+                <label for="chamber_name">Chamber name</label>
+                <input type="text" class="form-control" name="chamber_name" required>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="form-group">
+                <label for="paid_amount">Amount Received <span class="text-danger">*</span></label>
+                <div class="input-group">
+                    <input id="paid_amount" type="text" class="form-control" name="paid_amount"
+                        value="{{ $total_with_shipping }}" required>
+                    <div class="input-group-append">
+                        <button id="getTotalAmount" class="btn btn-primary" type="button">
+                            <i class="bi bi-check-square"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
         {{-- <div class="col-lg-4">
@@ -163,3 +187,43 @@
         </div> --}}
     </div>
 </div>
+@push('page_scripts')
+    <script type="text/javascript">
+        // $(document).ready(function() {
+        //     // Set the PHP value to the JavaScript variable
+        //     var totalWithShipping = "{{ $total_with_shipping }}";
+        //     console.log(totalWithShipping);
+
+        //     // Listen for changes in the #total_amount input field
+        //     $('#total_amount').on('change', function() {
+        //         // Get the updated value from the input field
+        //         totalWithShipping = $(this).val();
+        //         console.log(totalWithShipping, '----- event');
+
+        //         // Check if the value is not null or empty
+        //         if (totalWithShipping) {
+        //             console.log(totalWithShipping);
+        //             $('#paid_amount').val(totalWithShipping);
+        //             console.log($('#paid_amount').val());
+        //         }
+        //     });
+        // });
+        document.addEventListener('livewire:load', function() {
+            // Get the initial value from Livewire (PHP-rendered value)
+            let totalWithShipping = @this.get('total_with_shipping'); // Use Livewire's state
+
+            // Set the initial value for paid_amount
+            if (totalWithShipping) {
+                $('#paid_amount').val(totalWithShipping);
+            }
+
+            // Listen for Livewire updates to total_amount
+            Livewire.hook('message.processed', (message, component) => {
+                totalWithShipping = @this.get('total_with_shipping'); // Get updated value from Livewire
+                if (totalWithShipping) {
+                    $('#paid_amount').val(totalWithShipping);
+                }
+            });
+        });
+    </script>
+@endpush

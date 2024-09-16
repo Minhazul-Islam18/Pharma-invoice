@@ -39,6 +39,7 @@ class SaleController extends Controller
 
     public function store(StoreSaleRequest $request)
     {
+        // dd(Cart::instance('sale')->content(), $request->all());
         DB::transaction(function () use ($request) {
             $due_amount = $request->total_amount - $request->paid_amount;
 
@@ -58,6 +59,8 @@ class SaleController extends Controller
                 'customer_phone' => $request->customer_phone,
                 'customer_code' => $this->generateUniqueReference('001041', 'customer_code'),
                 'customer_id' => $customer->id,
+                'doctor_name' => $request->doctor_name,
+                'chamber_name' => $request->chamber_name,
                 'customer_name' => $request->customer_name,
                 'tax_percentage' => $request->tax_percentage ?? 0,
                 'discount_percentage' => $request->discount_percentage,
@@ -101,7 +104,7 @@ class SaleController extends Controller
             if ($sale->paid_amount > 0) {
                 SalePayment::create([
                     'date' => $request->date,
-                    'reference' => 'INV/' . $sale->reference,
+                    'reference' => $sale->reference,
                     'amount' => $sale->paid_amount,
                     'sale_id' => $sale->id,
                     'payment_method' => $request->payment_method
