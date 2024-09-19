@@ -87,8 +87,11 @@
                                 </div>
                                 <div>Mobile no: <span>{{ $superAdmin->phone }}</span>
                                 </div>
-                                <div>Delivered by: <span>{{ $superAdmin->delivered_by }}</span>
-                                </div>
+                                <p style="margin: 0; vertical-align: middle;"><span
+                                        style="width: 65px; display:inline-block;">Delivered
+                                        By</span> <span
+                                        style="display: inline-block;word-wrap: break-word;">:{{ $superAdmin->delivered_by }}</span>
+                                </p>
                                 <div>Delivery date: <span>___________________</span>
                                 </div>
 
@@ -243,15 +246,6 @@
                             <strong>Amount in words:</strong>
                             {{ ucfirst(str_replace('-', ' ', \Rmunate\Utilities\SpellNumber::value($sale->total_amount)->toLetters())) . ' Taka Only' }}
                         </span>
-                        {{-- <p>
-                            <img src="{{ asset('images/invoice/invoice-note.png') }}" alt="">
-                            <?php
-                            $imagePath = public_path('images/invoice/invoice-note.png');
-                            $imageData = base64_encode(file_get_contents($imagePath));
-                            $src = 'data:image/png;base64,' . $imageData;
-                            ?>
-                            <img src="{{ $src }}" alt="">
-                        </p> --}}
                     </div>
                 </div>
             </div>

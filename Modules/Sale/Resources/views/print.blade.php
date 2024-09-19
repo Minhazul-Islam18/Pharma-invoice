@@ -143,7 +143,7 @@
                                     $src = 'data:image/png;base64,' . $imageData;
                                     ?>
 
-                                    <img src="{{ $src }}" style="height: 66px; width: 75%;"
+                                    <img src="{{ $src }}" style="height: 60px; width: 75%;"
                                         alt="Invoice Image">
                                 </td>
                             </tr>
@@ -176,7 +176,7 @@
                                     <p style="margin: 0; vertical-align: middle;">
                                         <span style="width: 65px; display:inline-block;">Date</span>
                                         <span
-                                            style="display: inline-block;">:{{ \Carbon\Carbon::now()->format('d.m.Y') }}</span>
+                                            style="display: inline-block;">:{{ \Carbon\Carbon::parse($sale->date)->format('d.m.Y') }}</span>
                                     </p>
                                     <p style="margin: 0; vertical-align: middle;"><span
                                             style="width: 65px; display:inline-block;">Invoice
@@ -204,7 +204,7 @@
                                     <p style="margin: 0; vertical-align: middle;"><span
                                             style="width: 65px; display:inline-block;">Delivered
                                             By</span> <span
-                                            style="display: inline-block;word-wrap: break-word;font-size: 11px;">:{{ $superAdmin->delivered_by }}</span>
+                                            style="display: inline;word-wrap: break-word;">:{{ $superAdmin->delivered_by }}</span>
                                     </p>
                                     <p style="margin: 0; vertical-align: middle;"><span
                                             style="width: 65px; display:inline-block;">Delivery
@@ -310,7 +310,9 @@
                                             {{ $item->product_name }}</td>
                                         <td class="align-middle p-0 text-center"
                                             style="padding: 0 5px;text-align: center; border-right: 1px solid #000;">
-                                            {{ $item?->product?->pack_size }}</td>
+                                            PAC <br />
+                                            {{ $item?->product?->pack_size }}
+                                        </td>
                                         <td class="align-middle p-0 text-center"
                                             style="padding: 0;text-align: center; border-right: 1px solid #000;">
                                             {{ $item?->product?->batch_no }}</td>
@@ -513,14 +515,16 @@
                             সহ কুলার ব্যাগ (Cooler Bag) নিয়ে আসবেন, অন্যথায় আবার কিনতে হবে। ওষুধ ক্রয়ের পূর্বে
                             ভালোমতো পর্যবেক্ষণ করে নিন, বিক্রিত ওষুধ কোন অবস্থাতেই ফেরত নেয়া অথবা পরিবর্তন করা হয় না।
                             প্রতিদিন সকাল ৯.৩০ টা থেকে রাত ১০.০০ টা পর্যন্ত ওষুধ বিক্রয় করা হয় ।</p> --}}
-                        <?php
-                        $imagePath = public_path('images/invoice/invoice-note.png');
-                        $imageData = base64_encode(file_get_contents($imagePath));
-                        $src = 'data:image/png;base64,' . $imageData;
-                        ?>
-                        <img src="{{ $src }}"
-                            style="width: 100%; margin-top: 50px; border: 1px solid #000000; display: block;"
-                            alt="">
+                        <div style="display: block; text-align:center;">
+                            <?php
+                            $imagePath = public_path('images/invoice/invoice-note.png');
+                            $imageData = base64_encode(file_get_contents($imagePath));
+                            $src = 'data:image/png;base64,' . $imageData;
+                            ?>
+                            <img src="{{ $src }}"
+                                style="width: 95%; margin: 0 auto; margin-top: 50px; border: 1px solid #000000; display: block;"
+                                alt="">
+                        </div>
                     </div>
 
                     {{-- <table style="width: 100%; margin-top: 15px;font-size:10px;">
@@ -558,21 +562,21 @@
                     <tr>
                         <td style="text-align:center; padding: 10px 0;">
                             <div
-                                style="border-top: 1px solid #000000; text-align:center; display:inline-block; width:90%">
+                                style="border-top: 1px solid #000000; text-align:center; display:inline-block; width:75%">
                                 <h2 style="font-weight: bolder; margin: 0;">Customer Signature</h2>
                             </div>
                         </td>
 
                         <td style="text-align:center;padding: 10px 0;">
                             <div
-                                style="border-top: 1px solid #000000; text-align:center; display:inline-block; width:90%">
+                                style="border-top: 1px solid #000000; text-align:center; display:inline-block; width:75%">
                                 <h2 style="font-weight: bolder; margin: 0;">Depot In-Charge</h2>
                             </div>
                         </td>
 
                         <td style="text-align:center;padding: 10px 0;">
                             <div
-                                style="border-top: 1px solid #000000; text-align:center; display:inline-block; width:90%">
+                                style="border-top: 1px solid #000000; text-align:center; display:inline-block; width:75%">
                                 <h2 style="font-weight: bolder; margin: 0;">Authorised By</h2>
                             </div>
                         </td>
@@ -581,7 +585,7 @@
                         <td colspan="3">
                             <strong
                                 style="display: block; text-align:center; font-family: 'Times New Roman', Times, serif; font-size: 15px; text-transform: uppercase; margin-top: 16px;">
-                                Helpline No. : 01796234234
+                                Helpline No. : 09611620118
                             </strong>
                         </td>
                     </tr>
